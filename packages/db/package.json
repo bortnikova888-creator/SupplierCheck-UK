@@ -1,22 +1,21 @@
 {
-  "name": "@pkg/db",
-  "version": "0.0.0",
+  "name": "@suppliercheck/db",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    }
-  },
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
   "scripts": {
-    "build": "tsc",
-    "dev": "tsc --watch",
-    "clean": "rm -rf dist"
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.7.0"
   },
   "devDependencies": {
-    "typescript": "~5.8.2"
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/node": "^22.14.0",
+    "typescript": "~5.8.2",
+    "vitest": "^2.1.8"
   }
 }

@@ -1,6 +1,16 @@
-/**
- * Database package placeholder for SupplierCheck-UK
- * Will contain database client, schemas, and migrations
- */
+export { getConnection, closeConnection, resetConnection } from './connection.js';
+export type { ConnectionOptions } from './connection.js';
 
-export const DB_PLACEHOLDER = true;
+export { runMigrations } from './migrations/index.js';
+
+export {
+  Cache,
+  createCache,
+  generateCacheKey,
+} from './cache.js';
+export type {
+  FetchRequest,
+  FetchResponse,
+  CacheEntry,
+  FetchFunction,
+} from './cache.js';
