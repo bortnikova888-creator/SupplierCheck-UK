@@ -1,0 +1,23 @@
+{
+  "name": "tests",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "build": "echo 'No build step for tests'",
+    "clean": "rm -rf coverage"
+  },
+  "dependencies": {
+    "@fastify/cors": "^10.0.2",
+    "@pkg/core": "workspace:*",
+    "fastify": "^5.2.1"
+  },
+  "devDependencies": {
+    "@pkg/config": "workspace:*",
+    "@types/node": "^22.14.0",
+    "typescript": "~5.8.2",
+    "vitest": "^3.0.0"
+  }
+}
