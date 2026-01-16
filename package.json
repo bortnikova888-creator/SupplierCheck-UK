@@ -3,10 +3,15 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "npm test --workspaces --if-present",
+    "test:db": "npm test --workspace=@suppliercheck/db"
   },
   "dependencies": {
     "react": "^19.2.3",
