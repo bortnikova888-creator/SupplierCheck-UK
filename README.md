@@ -1,20 +1,29 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+````md
+# KYS Pack Generator
 
-# Run and deploy your AI Studio app
+Web app that generates a “KYS pack”: structured Markdown docs (spec, strategy, architecture, agents) optimized for fast handoff to LLM tooling (Google AI Studio / Claude / Codex).
 
-This contains everything you need to run your app locally.
+## Outputs
+- `spec.md`
+- `strategy.md`
+- `architecture.md`
+- `agents.md`
+- optional: `prompts/` (front-end + handoff bundles)
 
-View your app in AI Studio: https://ai.studio/apps/drive/1A9R79g5PQ0IxAEbEuDw1cbXyDbg6apnL
+## Run
+```bash
+npm install
+npm run dev
+````
 
-## Run Locally
+## Build
 
-**Prerequisites:**  Node.js
+```bash
+npm run build
+npm run start
+```
 
+## Notes
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+* Docs are intentionally short, stable-headed, and constraint-heavy to reduce model drift.
+* Generated files typically go in `out/` (gitignore it).
