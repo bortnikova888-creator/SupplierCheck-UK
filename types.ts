@@ -84,3 +84,35 @@ export interface DossierResponse {
     pdfUrl: string;
   };
 }
+
+// Modern Slavery Registry Types
+
+/** Evidence of data sources used during lookup */
+export interface RegistryEvidence {
+  csvUrl: string;
+  year: number;
+  rowIndex?: number;
+  matchMethod: 'company_number' | 'normalized_name';
+}
+
+/** Result from Modern Slavery Registry lookup */
+export interface ModernSlaveryRegistryResult {
+  found: boolean;
+  latestYear?: number;
+  statementSummaryUrl?: string;
+  evidence: RegistryEvidence[];
+}
+
+/** Raw parsed row from CSV (flexible schema) */
+export interface ModernSlaveryCSVRow {
+  [key: string]: string | undefined;
+}
+
+/** Detected column mappings for CSV parsing */
+export interface CSVColumnMapping {
+  companyNumber?: string;
+  companyName?: string;
+  statementUrl?: string;
+  year?: string;
+  signedDate?: string;
+}
