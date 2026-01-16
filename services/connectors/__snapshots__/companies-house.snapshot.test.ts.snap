@@ -1,0 +1,667 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Companies House Connector Snapshots > error response snapshots > should match invalid request error snapshot 1`] = `
+{
+  "error": {
+    "code": "INVALID_REQUEST",
+    "details": undefined,
+    "message": "Invalid company number",
+    "statusCode": undefined,
+  },
+  "evidence": {
+    "apiUrl": "https://api.company-information.service.gov.uk/company/invalid!!",
+    "fromCache": false,
+  },
+}
+`;
+
+exports[`Companies House Connector Snapshots > error response snapshots > should match not found error snapshot 1`] = `
+{
+  "error": {
+    "code": "NOT_FOUND",
+    "details": {
+      "errors": [
+        {
+          "error": "Company not found",
+        },
+      ],
+    },
+    "message": "Company not found",
+    "statusCode": 404,
+  },
+  "evidence": {
+    "apiUrl": "https://api.company-information.service.gov.uk/company/99999999",
+    "fromCache": false,
+  },
+}
+`;
+
+exports[`Companies House Connector Snapshots > error response snapshots > should match rate limited error snapshot 1`] = `
+{
+  "error": {
+    "code": "RATE_LIMITED",
+    "details": {
+      "errors": [
+        {
+          "error": "Rate limit exceeded",
+        },
+      ],
+    },
+    "message": "Rate limit exceeded",
+    "statusCode": 429,
+  },
+  "evidence": {
+    "apiUrl": "https://api.company-information.service.gov.uk/company/12345678",
+    "fromCache": false,
+  },
+}
+`;
+
+exports[`Companies House Connector Snapshots > error response snapshots > should match unauthorized error snapshot 1`] = `
+{
+  "error": {
+    "code": "UNAUTHORIZED",
+    "details": {
+      "errors": [
+        {
+          "error": "Invalid API key",
+        },
+      ],
+    },
+    "message": "Invalid API key",
+    "statusCode": 401,
+  },
+  "evidence": {
+    "apiUrl": "https://api.company-information.service.gov.uk/company/12345678",
+    "fromCache": false,
+  },
+}
+`;
+
+exports[`Companies House Connector Snapshots > getCompanyProfile snapshots > should match active company profile snapshot 1`] = `
+{
+  "data": {
+    "accounts": {
+      "accounting_reference_date": {
+        "day": 31,
+        "month": 12,
+      },
+      "last_accounts": {
+        "made_up_to": "2023-12-31",
+        "period_end_on": "2023-12-31",
+        "period_start_on": "2023-01-01",
+        "type": "full",
+      },
+      "next_accounts": {
+        "due_on": "2025-09-30",
+        "overdue": false,
+        "period_end_on": "2024-12-31",
+        "period_start_on": "2024-01-01",
+      },
+      "next_due": "2025-09-30",
+      "next_made_up_to": "2024-12-31",
+      "overdue": false,
+    },
+    "can_file": true,
+    "company_name": "EXAMPLE TRADING LIMITED",
+    "company_number": "12345678",
+    "company_status": "active",
+    "confirmation_statement": {
+      "last_made_up_to": "2024-03-15",
+      "next_due": "2025-03-29",
+      "next_made_up_to": "2025-03-15",
+      "overdue": false,
+    },
+    "date_of_creation": "2020-01-15",
+    "etag": "profile-etag-123",
+    "has_been_liquidated": false,
+    "has_charges": false,
+    "has_insolvency_history": false,
+    "is_community_interest_company": false,
+    "jurisdiction": "england-wales",
+    "links": {
+      "filing_history": "/company/12345678/filing-history",
+      "officers": "/company/12345678/officers",
+      "persons_with_significant_control": "/company/12345678/persons-with-significant-control",
+      "persons_with_significant_control_statements": "/company/12345678/persons-with-significant-control-statements",
+      "self": "/company/12345678",
+    },
+    "previous_company_names": [
+      {
+        "ceased_on": "2021-06-30",
+        "effective_from": "2020-01-15",
+        "name": "ORIGINAL NAME LIMITED",
+      },
+    ],
+    "registered_office_address": {
+      "address_line_1": "123 Business Park",
+      "address_line_2": "Enterprise Way",
+      "country": "United Kingdom",
+      "locality": "Manchester",
+      "postal_code": "M1 2AB",
+    },
+    "registered_office_is_in_dispute": false,
+    "sic_codes": [
+      "62020",
+      "62090",
+    ],
+    "type": "ltd",
+    "undeliverable_registered_office_address": false,
+  },
+  "evidence": {
+    "apiUrl": "https://api.company-information.service.gov.uk/company/12345678",
+    "fromCache": false,
+    "publicUrl": "https://find-and-update.company-information.service.gov.uk/company/12345678",
+  },
+}
+`;
+
+exports[`Companies House Connector Snapshots > getCompanyProfile snapshots > should match dissolved company profile snapshot 1`] = `
+{
+  "data": {
+    "can_file": false,
+    "company_name": "DEFUNCT ENTERPRISES LTD",
+    "company_number": "SC654321",
+    "company_status": "dissolved",
+    "company_status_detail": "Company has been dissolved",
+    "date_of_cessation": "2023-06-15",
+    "date_of_creation": "2015-08-20",
+    "etag": "dissolved-etag-456",
+    "has_been_liquidated": true,
+    "has_charges": false,
+    "has_insolvency_history": true,
+    "jurisdiction": "scotland",
+    "links": {
+      "filing_history": "/company/SC654321/filing-history",
+      "self": "/company/SC654321",
+    },
+    "registered_office_address": {
+      "address_line_1": "100 George Street",
+      "country": "Scotland",
+      "locality": "Edinburgh",
+      "postal_code": "EH2 3ES",
+    },
+    "sic_codes": [
+      "47110",
+    ],
+    "type": "ltd",
+  },
+  "evidence": {
+    "apiUrl": "https://api.company-information.service.gov.uk/company/SC654321",
+    "fromCache": false,
+    "publicUrl": "https://find-and-update.company-information.service.gov.uk/company/SC654321",
+  },
+}
+`;
+
+exports[`Companies House Connector Snapshots > getOfficers snapshots > should match corporate officer snapshot 1`] = `
+{
+  "data": {
+    "active_count": 1,
+    "items": [
+      {
+        "address": {
+          "address_line_1": "1 Corporate Plaza",
+          "country": "United Kingdom",
+          "locality": "London",
+          "postal_code": "EC2A 2BB",
+        },
+        "appointed_on": "2021-03-15",
+        "identification": {
+          "identification_type": "uk-limited-company",
+          "legal_authority": "Companies Act 2006",
+          "legal_form": "Limited Company",
+          "place_registered": "England and Wales",
+          "registration_number": "98765432",
+        },
+        "links": {
+          "officer": {
+            "appointments": "/officers/corp456/appointments",
+          },
+          "self": "/company/12345678/appointments/corp456",
+        },
+        "name": "CORPORATE SECRETARY LTD",
+        "officer_role": "corporate-secretary",
+      },
+    ],
+    "items_per_page": 35,
+    "kind": "officer-list",
+    "links": {
+      "self": "/company/12345678/officers",
+    },
+    "start_index": 0,
+    "total_results": 1,
+  },
+  "evidence": {
+    "apiUrl": "https://api.company-information.service.gov.uk/company/12345678/officers",
+    "fromCache": false,
+    "publicUrl": "https://find-and-update.company-information.service.gov.uk/company/12345678/officers",
+  },
+}
+`;
+
+exports[`Companies House Connector Snapshots > getOfficers snapshots > should match officers list snapshot 1`] = `
+{
+  "data": {
+    "active_count": 2,
+    "etag": "officers-etag-789",
+    "inactive_count": 0,
+    "items": [
+      {
+        "address": {
+          "address_line_1": "123 Director Lane",
+          "country": "United Kingdom",
+          "locality": "London",
+          "postal_code": "SW1A 1AA",
+          "premises": "Suite 100",
+        },
+        "appointed_on": "2020-01-15",
+        "country_of_residence": "England",
+        "date_of_birth": {
+          "month": 6,
+          "year": 1985,
+        },
+        "links": {
+          "officer": {
+            "appointments": "/officers/abc123def456/appointments",
+          },
+          "self": "/company/12345678/appointments/abc123def456",
+        },
+        "name": "SMITH, John David",
+        "nationality": "British",
+        "occupation": "Company Director",
+        "officer_role": "director",
+      },
+      {
+        "address": {
+          "address_line_1": "456 Finance Road",
+          "country": "United Kingdom",
+          "locality": "Manchester",
+          "postal_code": "M1 2CD",
+        },
+        "appointed_on": "2020-02-01",
+        "country_of_residence": "England",
+        "date_of_birth": {
+          "month": 11,
+          "year": 1978,
+        },
+        "links": {
+          "officer": {
+            "appointments": "/officers/xyz789ghi012/appointments",
+          },
+          "self": "/company/12345678/appointments/xyz789ghi012",
+        },
+        "name": "JONES, Sarah Elizabeth",
+        "nationality": "British",
+        "occupation": "Finance Director",
+        "officer_role": "director",
+      },
+      {
+        "address": {
+          "address_line_1": "789 Secretary Street",
+          "country": "United Kingdom",
+          "locality": "Birmingham",
+          "postal_code": "B1 1AA",
+        },
+        "appointed_on": "2020-01-15",
+        "former_names": [
+          {
+            "forenames": "Mike",
+            "surname": "BROWN",
+          },
+        ],
+        "links": {
+          "officer": {
+            "appointments": "/officers/former123/appointments",
+          },
+          "self": "/company/12345678/appointments/former123",
+        },
+        "name": "BROWN, Michael",
+        "nationality": "British",
+        "officer_role": "secretary",
+        "resigned_on": "2023-06-30",
+      },
+    ],
+    "items_per_page": 35,
+    "kind": "officer-list",
+    "links": {
+      "self": "/company/12345678/officers",
+    },
+    "resigned_count": 1,
+    "start_index": 0,
+    "total_results": 3,
+  },
+  "evidence": {
+    "apiUrl": "https://api.company-information.service.gov.uk/company/12345678/officers",
+    "fromCache": false,
+    "publicUrl": "https://find-and-update.company-information.service.gov.uk/company/12345678/officers",
+  },
+}
+`;
+
+exports[`Companies House Connector Snapshots > getPscStatements snapshots > should match PSC statements snapshot 1`] = `
+{
+  "data": {
+    "active_count": 1,
+    "ceased_count": 1,
+    "etag": "psc-statements-etag",
+    "items": [
+      {
+        "etag": "statement1-etag",
+        "kind": "persons-with-significant-control-statement#statement",
+        "links": {
+          "self": "/company/12345678/persons-with-significant-control-statements/statement1",
+        },
+        "notified_on": "2020-01-15",
+        "statement": "no-individual-or-entity-with-significant-control",
+      },
+      {
+        "ceased_on": "2021-06-20",
+        "etag": "statement2-etag",
+        "kind": "persons-with-significant-control-statement#statement",
+        "linked_psc_name": "Mr John David Smith",
+        "links": {
+          "person_with_significant_control": "/company/12345678/persons-with-significant-control/individual/psc1",
+          "self": "/company/12345678/persons-with-significant-control-statements/statement2",
+        },
+        "notified_on": "2020-01-15",
+        "restrictions_notice_withdrawal_reason": "restrictions-notice-withdrawn-by-company",
+        "statement": "restrictions-notice-issued-to-psc",
+      },
+    ],
+    "items_per_page": 25,
+    "kind": "persons-with-significant-control-statement#list",
+    "links": {
+      "persons_with_significant_control": "/company/12345678/persons-with-significant-control",
+      "self": "/company/12345678/persons-with-significant-control-statements",
+    },
+    "start_index": 0,
+    "total_results": 2,
+  },
+  "evidence": {
+    "apiUrl": "https://api.company-information.service.gov.uk/company/12345678/persons-with-significant-control-statements",
+    "fromCache": false,
+    "publicUrl": "https://find-and-update.company-information.service.gov.uk/company/12345678/persons-with-significant-control",
+  },
+}
+`;
+
+exports[`Companies House Connector Snapshots > getPscStatements snapshots > should match statements-only snapshot 1`] = `
+{
+  "data": {
+    "active_count": 2,
+    "ceased_count": 0,
+    "items": [
+      {
+        "etag": "steps-statement-etag",
+        "kind": "persons-with-significant-control-statement#statement",
+        "links": {
+          "self": "/company/12345678/persons-with-significant-control-statements/steps1",
+        },
+        "notified_on": "2023-01-01",
+        "statement": "steps-to-find-psc-not-yet-completed",
+      },
+      {
+        "etag": "psc-exists-statement-etag",
+        "kind": "persons-with-significant-control-statement#statement",
+        "links": {
+          "self": "/company/12345678/persons-with-significant-control-statements/exists1",
+        },
+        "notified_on": "2023-03-15",
+        "statement": "psc-exists-but-not-identified",
+      },
+    ],
+    "items_per_page": 25,
+    "kind": "persons-with-significant-control-statement#list",
+    "links": {
+      "persons_with_significant_control": "/company/12345678/persons-with-significant-control",
+      "self": "/company/12345678/persons-with-significant-control-statements",
+    },
+    "start_index": 0,
+    "total_results": 2,
+  },
+  "evidence": {
+    "apiUrl": "https://api.company-information.service.gov.uk/company/12345678/persons-with-significant-control-statements",
+    "fromCache": false,
+    "publicUrl": "https://find-and-update.company-information.service.gov.uk/company/12345678/persons-with-significant-control",
+  },
+}
+`;
+
+exports[`Companies House Connector Snapshots > getPscs snapshots > should match PSCs list snapshot 1`] = `
+{
+  "data": {
+    "active_count": 2,
+    "ceased_count": 1,
+    "etag": "pscs-etag-abc",
+    "items": [
+      {
+        "address": {
+          "address_line_1": "123 Owner Street",
+          "country": "United Kingdom",
+          "locality": "London",
+          "postal_code": "SW1A 1AA",
+        },
+        "country_of_residence": "England",
+        "date_of_birth": {
+          "month": 6,
+          "year": 1985,
+        },
+        "etag": "psc1-etag",
+        "kind": "individual-person-with-significant-control",
+        "links": {
+          "self": "/company/12345678/persons-with-significant-control/individual/psc1",
+        },
+        "name": "Mr John David Smith",
+        "name_elements": {
+          "forename": "John",
+          "middle_name": "David",
+          "surname": "Smith",
+          "title": "Mr",
+        },
+        "nationality": "British",
+        "natures_of_control": [
+          "ownership-of-shares-75-to-100-percent",
+          "voting-rights-75-to-100-percent",
+          "right-to-appoint-and-remove-directors",
+        ],
+        "notified_on": "2020-01-15",
+      },
+      {
+        "address": {
+          "address_line_1": "456 Investor Lane",
+          "country": "United Kingdom",
+          "locality": "Manchester",
+          "postal_code": "M1 2AB",
+        },
+        "country_of_residence": "England",
+        "date_of_birth": {
+          "month": 3,
+          "year": 1970,
+        },
+        "etag": "psc2-etag",
+        "kind": "individual-person-with-significant-control",
+        "links": {
+          "self": "/company/12345678/persons-with-significant-control/individual/psc2",
+        },
+        "name": "Ms Jane Doe",
+        "name_elements": {
+          "forename": "Jane",
+          "surname": "Doe",
+          "title": "Ms",
+        },
+        "nationality": "British",
+        "natures_of_control": [
+          "ownership-of-shares-25-to-50-percent",
+        ],
+        "notified_on": "2021-06-20",
+      },
+      {
+        "address": {
+          "address_line_1": "789 Former Ave",
+          "country": "United Kingdom",
+          "locality": "Birmingham",
+          "postal_code": "B1 1CD",
+        },
+        "ceased_on": "2022-12-31",
+        "country_of_residence": "England",
+        "date_of_birth": {
+          "month": 9,
+          "year": 1960,
+        },
+        "etag": "psc3-etag",
+        "kind": "individual-person-with-significant-control",
+        "links": {
+          "self": "/company/12345678/persons-with-significant-control/individual/psc3",
+        },
+        "name": "Mr Robert Former",
+        "name_elements": {
+          "forename": "Robert",
+          "surname": "Former",
+          "title": "Mr",
+        },
+        "nationality": "British",
+        "natures_of_control": [
+          "ownership-of-shares-25-to-50-percent",
+        ],
+        "notified_on": "2020-01-15",
+      },
+    ],
+    "items_per_page": 25,
+    "kind": "persons-with-significant-control#list",
+    "links": {
+      "persons_with_significant_control_statements": "/company/12345678/persons-with-significant-control-statements",
+      "self": "/company/12345678/persons-with-significant-control",
+    },
+    "start_index": 0,
+    "total_results": 3,
+  },
+  "evidence": {
+    "apiUrl": "https://api.company-information.service.gov.uk/company/12345678/persons-with-significant-control",
+    "fromCache": false,
+    "publicUrl": "https://find-and-update.company-information.service.gov.uk/company/12345678/persons-with-significant-control",
+  },
+}
+`;
+
+exports[`Companies House Connector Snapshots > getPscs snapshots > should match corporate PSC snapshot 1`] = `
+{
+  "data": {
+    "active_count": 1,
+    "ceased_count": 0,
+    "items": [
+      {
+        "address": {
+          "address_line_1": "1 Holding Company Plaza",
+          "country": "United Kingdom",
+          "locality": "London",
+          "postal_code": "EC1A 1AA",
+        },
+        "etag": "corp-psc-etag",
+        "identification": {
+          "country_registered": "England",
+          "legal_authority": "Companies Act 2006",
+          "legal_form": "Private Limited Company",
+          "place_registered": "Companies House",
+          "registration_number": "11112222",
+        },
+        "kind": "corporate-entity-person-with-significant-control",
+        "links": {
+          "self": "/company/12345678/persons-with-significant-control/corporate-entity/corpsc1",
+        },
+        "name": "PARENT HOLDINGS LTD",
+        "natures_of_control": [
+          "ownership-of-shares-75-to-100-percent",
+          "voting-rights-75-to-100-percent",
+        ],
+        "notified_on": "2019-04-01",
+      },
+    ],
+    "items_per_page": 25,
+    "kind": "persons-with-significant-control#list",
+    "links": {
+      "self": "/company/12345678/persons-with-significant-control",
+    },
+    "start_index": 0,
+    "total_results": 1,
+  },
+  "evidence": {
+    "apiUrl": "https://api.company-information.service.gov.uk/company/12345678/persons-with-significant-control",
+    "fromCache": false,
+    "publicUrl": "https://find-and-update.company-information.service.gov.uk/company/12345678/persons-with-significant-control",
+  },
+}
+`;
+
+exports[`Companies House Connector Snapshots > searchCompanies snapshots > should match search results snapshot 1`] = `
+{
+  "data": {
+    "etag": "abc123def456",
+    "items": [
+      {
+        "address": {
+          "address_line_1": "Cms Cameron Mckenna Llp",
+          "address_line_2": "78 Cannon Street",
+          "locality": "London",
+          "postal_code": "EC4N 6AF",
+          "premises": "Cannon Place",
+        },
+        "address_snippet": "Cms Cameron Mckenna Llp, Cannon Place, 78 Cannon Street, London, EC4N 6AF",
+        "company_number": "00000006",
+        "company_status": "active",
+        "company_type": "ltd",
+        "date_of_creation": "1852-07-01",
+        "kind": "searchresults#company",
+        "links": {
+          "self": "/company/00000006",
+        },
+        "title": "MARINE AND GENERAL MUTUAL LIFE ASSURANCE SOCIETY",
+      },
+      {
+        "address": {
+          "address_line_1": "123 Ocean Drive",
+          "locality": "Southampton",
+          "postal_code": "SO14 2AB",
+        },
+        "address_snippet": "123 Ocean Drive, Southampton, SO14 2AB",
+        "company_number": "10203040",
+        "company_status": "active",
+        "company_type": "private-limited-guarant-nsc",
+        "date_of_creation": "2016-05-15",
+        "kind": "searchresults#company",
+        "links": {
+          "self": "/company/10203040",
+        },
+        "title": "MARINE ENTERPRISES LTD",
+      },
+      {
+        "address": {
+          "address_line_1": "456 High Street",
+          "locality": "Edinburgh",
+          "postal_code": "EH1 1AA",
+        },
+        "address_snippet": "456 High Street, Edinburgh, EH1 1AA",
+        "company_number": "SC123456",
+        "company_status": "dissolved",
+        "company_type": "ltd",
+        "date_of_cessation": "2022-11-30",
+        "date_of_creation": "2010-03-22",
+        "kind": "searchresults#company",
+        "links": {
+          "self": "/company/SC123456",
+        },
+        "title": "MARINE SCOTLAND TRADING LTD",
+      },
+    ],
+    "items_per_page": 20,
+    "kind": "search#companies",
+    "start_index": 0,
+    "total_results": 3,
+  },
+  "evidence": {
+    "apiUrl": "https://api.company-information.service.gov.uk/search/companies?q=marine",
+    "fromCache": false,
+    "publicUrl": undefined,
+  },
+}
+`;
