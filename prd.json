@@ -1,0 +1,194 @@
+{
+  "project_metadata": {
+    "total_prds": 10,
+    "architecture": "pnpm monorepo",
+    "stack": ["Fastify", "Vite", "React", "SQLite", "Zod", "Vitest", "Playwright"],
+    "strategy": "Deterministic shippable increments"
+  },
+  "prds": [
+    {
+      "id": 1,
+      "title": "Monorepo foundation + tooling",
+      "goal": "Create a working pnpm monorepo with apps/api, apps/web, packages/core, packages/db, packages/config, tests.",
+      "scope": [
+        "pnpm workspaces, TS config, lint/format, Vitest.",
+        "Minimal apps/api server with /api/healthz.",
+        "Minimal apps/web Vite app that loads and shows “OK” + calls /api/healthz."
+      ],
+      "deliverables": [
+        "Root configs: pnpm-workspace.yaml, tsconfig.base.json, .env.example, package.json scripts.",
+        "apps/api Fastify server skeleton.",
+        "apps/web Vite React skeleton."
+      ],
+      "acceptance": [
+        "pnpm i succeeds",
+        "pnpm -r build succeeds",
+        "pnpm --filter @app/api dev runs server",
+        "pnpm --filter @app/web dev runs client",
+        "Client can call /api/healthz in dev (proxy configured)."
+      ],
+      "tests": [
+        "One Vitest smoke test for GET /api/healthz (supertest)."
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Config + env parsing (no secrets in web)",
+      "goal": "Centralize config. Ensure Companies House API key only exists server-side.",
+      "scope": [
+        "packages/config/src/env.ts using zod.",
+        "Server loads env; web has no access to API key."
+      ],
+      "acceptance": [
+        "Server fails fast if required env missing.",
+        ".env.example updated.",
+        "No API key referenced in apps/web."
+      ],
+      "tests": [
+        "Unit test: env parsing rejects missing key."
+      ]
+    },
+    {
+      "id": 3,
+      "title": "SQLite + cache layer",
+      "goal": "Implement deterministic cache for upstream responses.",
+      "scope": [
+        "packages/db: SQLite connection + migrations.",
+        "cache_entries table.",
+        "getOrFetchRaw implementation with TTL logic."
+      ],
+      "acceptance": [
+        "Cache hit returns identical bytes.",
+        "Cache stored on disk path from env."
+      ],
+      "tests": [
+        "Unit test with fake fetch: first call miss, second call hit.",
+        "TTL expiry test."
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Companies House connector",
+      "goal": "Implement Companies House API integration using cache layer.",
+      "scope": [
+        "Connector methods: searchCompanies, getCompanyProfile, getOfficers, getPscs, getPscStatements.",
+        "Evidence objects include API URL and Public company page URL."
+      ],
+      "acceptance": [
+        "Requests use Basic Auth with API key.",
+        "All endpoints cached with TTL.",
+        "Deterministic error handling for upstream failures."
+      ],
+      "tests": [
+        "Nock-based tests using fixtures for each endpoint.",
+        "Snapshot raw normalized outputs."
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Modern Slavery Registry connector (CSV-based)",
+      "goal": "Determine statement existence + latest year via registry CSV(s), cached.",
+      "scope": [
+        "Download and parse per-year CSVs.",
+        "Match strategy: company number exact match or normalized name match.",
+        "Cache each CSV by year."
+      ],
+      "acceptance": [
+        "Resilient to schema changes (return found:false, don't crash).",
+        "Evidence includes CSV URLs and summary URLs."
+      ],
+      "tests": [
+        "Fixtures: 2 CSV samples (with/without company number column).",
+        "Unit test for normalization + match."
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Dossier builder (normalize + determinism)",
+      "goal": "Build a deterministic Dossier object from connector outputs.",
+      "scope": [
+        "Normalize company, officers, PSC, and slavery data.",
+        "Stable sorts for officers and PSCs.",
+        "Stable evidence IDs (hash of URL)."
+      ],
+      "acceptance": [
+        "Same inputs produce byte-identical dossier JSON.",
+        "No timestamps inside dossier unless from upstream."
+      ],
+      "tests": [
+        "Golden fixture tests (3 scenarios) snapshot dossier JSON."
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Risk flags engine (explicit rules)",
+      "goal": "Implement flags F1–F7 exactly; output deterministic flags with evidence links.",
+      "scope": [
+        "Rules: F1 Status, F2/F3 Overdue, F4 Insolvency, F5 PSC missing, F6 Officer changes, F7 Modern Slavery missing.",
+        "Flags include rule string, explanation, and evidenceIds."
+      ],
+      "acceptance": [
+        "Flags stable ordering (by flagId).",
+        "No scores, only flags."
+      ],
+      "tests": [
+        "Unit tests for each flag rule.",
+        "Golden snapshots for the 3 fixture dossiers."
+      ]
+    },
+    {
+      "id": 8,
+      "title": "HTML report renderer",
+      "goal": "Render a clean dossier HTML from Dossier with evidence links.",
+      "scope": [
+        "packages/core/report/renderHtml.ts template.",
+        "Sections: identity, flags, company, officers, PSC, slavery, appendix.",
+        "Print CSS included; no dynamic timestamps."
+      ],
+      "acceptance": [
+        "HTML renders without external assets.",
+        "Deterministic output (normalized whitespace)."
+      ],
+      "tests": [
+        "Snapshot normalized HTML for fixture dossiers."
+      ]
+    },
+    {
+      "id": 9,
+      "title": "API routes",
+      "goal": "Expose required endpoints for search and dossier management.",
+      "scope": [
+        "GET /api/search, /api/company/:id, /api/company/:id/report.html, /api/company/:id/report.pdf.",
+        "Basic validation + rate limiting."
+      ],
+      "acceptance": [
+        "Company route triggers connectors and returns dossier/report URLs.",
+        "HTML and PDF routes utilize the same source.",
+        "Structured error responses."
+      ],
+      "tests": [
+        "Supertest smoke tests for all routes (mock upstream via Nock)."
+      ]
+    },
+    {
+      "id": 10,
+      "title": "PDF generation + deploy packaging",
+      "goal": "Generate PDF via Playwright and make deployable container.",
+      "scope": [
+        "Playwright Chromium setup in Dockerfile.",
+        "Shared browser instance (lazy init).",
+        "Fly.toml + volume mount instructions.",
+        "Static web build served from API."
+      ],
+      "acceptance": [
+        "GET report.pdf returns valid PDF header.",
+        "Monolith build serves both UI and API.",
+        "Docker build succeeds."
+      ],
+      "tests": [
+        "PDF smoke test (header + size).",
+        "Build pipeline in CI."
+      ]
+    }
+  ]
+}
