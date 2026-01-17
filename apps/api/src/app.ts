@@ -7,6 +7,7 @@ import {
   renderDossierHtml,
   type DossierInput,
 } from '@pkg/core';
+import { renderReportPdf } from './report/renderPdf';
 import {
   createCompaniesHouseConnector,
   ConnectorErrorCode,
@@ -279,9 +280,10 @@ export async function buildApiApp(options: ApiAppOptions): Promise<FastifyInstan
       dossierResult.dossier.generatedAt
     );
     const html = renderDossierHtml(dossierWithFlags, dossierResult.evidence);
+    const pdfBuffer = await renderReportPdf(html);
 
     reply.type('application/pdf');
-    return html;
+    return pdfBuffer;
   });
 
   app.setErrorHandler((error, _request, reply) => {
