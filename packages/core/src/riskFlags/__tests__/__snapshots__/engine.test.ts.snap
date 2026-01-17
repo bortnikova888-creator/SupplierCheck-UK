@@ -1,0 +1,216 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Risk Flags Engine > buildDossierWithRiskFlags > should build complete dossier with flags for scenario 1 > scenario1-dossier-with-flags 1`] = `
+{
+  "company": {
+    "companyNumber": "12345678",
+    "incorporationDate": "2020-01-15",
+    "name": "EXAMPLE TRADING LIMITED",
+    "registeredOffice": {
+      "country": "United Kingdom",
+      "line1": "123 Business Park",
+      "line2": "Enterprise Way",
+      "postcode": "M1 2AB",
+      "town": "Manchester",
+    },
+    "sicCodes": [
+      "62020",
+      "62090",
+    ],
+    "status": "active",
+    "type": "ltd",
+  },
+  "generatedAt": "2024-01-15T12:00:00.000Z",
+  "modernSlavery": undefined,
+  "officers": [
+    {
+      "appointedOn": "2020-01-15",
+      "birthMonth": undefined,
+      "birthYear": undefined,
+      "name": "BROWN, Michael",
+      "nationality": "British",
+      "resignedOn": "2023-06-30",
+      "role": "Secretary",
+    },
+    {
+      "appointedOn": "2020-01-15",
+      "birthMonth": 6,
+      "birthYear": 1985,
+      "name": "SMITH, John David",
+      "nationality": "British",
+      "resignedOn": undefined,
+      "role": "Director",
+    },
+    {
+      "appointedOn": "2020-02-01",
+      "birthMonth": 11,
+      "birthYear": 1978,
+      "name": "JONES, Sarah Elizabeth",
+      "nationality": "British",
+      "resignedOn": undefined,
+      "role": "Director",
+    },
+  ],
+  "pscs": [
+    {
+      "ceasedOn": undefined,
+      "name": "Mr John David Smith",
+      "nationality": "British",
+      "natureOfControl": [
+        "ownership-of-shares-75-to-100-percent",
+        "right-to-appoint-and-remove-directors",
+        "voting-rights-75-to-100-percent",
+      ],
+      "notifiedOn": "2020-01-15",
+    },
+    {
+      "ceasedOn": undefined,
+      "name": "Ms Jane Doe",
+      "nationality": "British",
+      "natureOfControl": [
+        "ownership-of-shares-25-to-50-percent",
+      ],
+      "notifiedOn": "2021-06-20",
+    },
+  ],
+  "riskFlags": [
+    {
+      "evidenceUrl": "https://find-and-update.company-information.service.gov.uk/company/12345678",
+      "explanation": "No modern slavery statement found. Large companies (turnover > £36M) are legally required to publish one annually.",
+      "id": "F7",
+      "severity": "MEDIUM",
+      "title": "Modern slavery statement missing",
+    },
+  ],
+}
+`;
+
+exports[`Risk Flags Engine > buildDossierWithRiskFlags > should build complete dossier with flags for scenario 2 > scenario2-dossier-with-flags 1`] = `
+{
+  "company": {
+    "companyNumber": "SC654321",
+    "incorporationDate": "2015-08-20",
+    "name": "DEFUNCT ENTERPRISES LTD",
+    "registeredOffice": {
+      "country": "Scotland",
+      "line1": "100 George Street",
+      "line2": undefined,
+      "postcode": "EH2 3ES",
+      "town": "Edinburgh",
+    },
+    "sicCodes": [
+      "47110",
+    ],
+    "status": "dissolved",
+    "type": "ltd",
+  },
+  "generatedAt": "2024-01-15T12:00:00.000Z",
+  "modernSlavery": undefined,
+  "officers": [],
+  "pscs": [],
+  "riskFlags": [
+    {
+      "evidenceUrl": "https://find-and-update.company-information.service.gov.uk/company/SC654321",
+      "explanation": "Company status is "dissolved". The company is not currently active and may not be able to fulfil obligations.",
+      "id": "F1",
+      "severity": "HIGH",
+      "title": "Company not active",
+    },
+    {
+      "evidenceUrl": "https://find-and-update.company-information.service.gov.uk/company/SC654321/persons-with-significant-control",
+      "explanation": "The company has no active Persons with Significant Control (PSCs) and no valid statement explaining why. This is a legal requirement.",
+      "id": "F5",
+      "severity": "HIGH",
+      "title": "PSC missing",
+    },
+  ],
+}
+`;
+
+exports[`Risk Flags Engine > buildDossierWithRiskFlags > should build complete dossier with flags for scenario 3 > scenario3-dossier-with-flags 1`] = `
+{
+  "company": {
+    "companyNumber": "00123456",
+    "incorporationDate": "1990-03-01",
+    "name": "BIG CORPORATION PLC",
+    "registeredOffice": {
+      "country": "England",
+      "line1": "1 Corporate Tower",
+      "line2": "Financial District",
+      "postcode": "EC1A 1BB",
+      "town": "London",
+    },
+    "sicCodes": [
+      "10110",
+      "10120",
+      "10130",
+    ],
+    "status": "active",
+    "type": "plc",
+  },
+  "generatedAt": "2024-01-15T12:00:00.000Z",
+  "modernSlavery": {
+    "compliant": true,
+    "dateSigned": "",
+    "signedBy": "",
+    "url": "https://modern-slavery-statement-registry.service.gov.uk/statement-summary/12345",
+  },
+  "officers": [
+    {
+      "appointedOn": "2010-01-01",
+      "birthMonth": 1,
+      "birthYear": 1955,
+      "name": "LORD CHAIRMAN, Richard",
+      "nationality": "British",
+      "resignedOn": undefined,
+      "role": "Director",
+    },
+  ],
+  "pscs": [
+    {
+      "ceasedOn": undefined,
+      "name": "PARENT HOLDINGS LTD",
+      "nationality": "",
+      "natureOfControl": [
+        "ownership-of-shares-75-to-100-percent",
+        "voting-rights-75-to-100-percent",
+      ],
+      "notifiedOn": "2019-04-01",
+    },
+  ],
+  "riskFlags": [],
+}
+`;
+
+exports[`Risk Flags Engine > computeRiskFlags > should compute flags for scenario 1 (active company) > scenario1-risk-flags 1`] = `
+[
+  {
+    "evidenceUrl": "https://find-and-update.company-information.service.gov.uk/company/12345678",
+    "explanation": "No modern slavery statement found. Large companies (turnover > £36M) are legally required to publish one annually.",
+    "id": "F7",
+    "severity": "MEDIUM",
+    "title": "Modern slavery statement missing",
+  },
+]
+`;
+
+exports[`Risk Flags Engine > computeRiskFlags > should compute flags for scenario 2 (dissolved company) > scenario2-risk-flags 1`] = `
+[
+  {
+    "evidenceUrl": "https://find-and-update.company-information.service.gov.uk/company/SC654321",
+    "explanation": "Company status is "dissolved". The company is not currently active and may not be able to fulfil obligations.",
+    "id": "F1",
+    "severity": "HIGH",
+    "title": "Company not active",
+  },
+  {
+    "evidenceUrl": "https://find-and-update.company-information.service.gov.uk/company/SC654321/persons-with-significant-control",
+    "explanation": "The company has no active Persons with Significant Control (PSCs) and no valid statement explaining why. This is a legal requirement.",
+    "id": "F5",
+    "severity": "HIGH",
+    "title": "PSC missing",
+  },
+]
+`;
+
+exports[`Risk Flags Engine > computeRiskFlags > should compute flags for scenario 3 (company with modern slavery) > scenario3-risk-flags 1`] = `[]`;

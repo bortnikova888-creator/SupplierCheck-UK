@@ -40,3 +40,6 @@ export type {
   ModernSlaveryStatement,
   ModernSlaveryRegistryResult,
 } from './connector-types';
+
+// Re-export FlagSeverity enum as a value (not just type)
+export { FlagSeverity } from './connector-types';
