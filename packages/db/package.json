@@ -1,5 +1,5 @@
 {
-  "name": "@suppliercheck/db",
+  "name": "@pkg/db",
   "version": "1.0.0",
   "private": true,
   "type": "module",

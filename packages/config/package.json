@@ -1,5 +1,5 @@
 {
-  "name": "@suppliercheck/config",
+  "name": "@pkg/config",
   "version": "0.1.0",
   "description": "Centralized configuration and environment variable parsing",
   "main": "./dist/index.js",
