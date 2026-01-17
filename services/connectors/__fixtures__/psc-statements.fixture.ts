@@ -20,7 +20,8 @@ export const pscStatementsFixture: PSCStatementsResponse = {
       kind: 'persons-with-significant-control-statement#statement',
       linked_psc_name: 'Mr John David Smith',
       links: {
-        person_with_significant_control: '/company/12345678/persons-with-significant-control/individual/psc1',
+        person_with_significant_control:
+          '/company/12345678/persons-with-significant-control/individual/psc1',
         self: '/company/12345678/persons-with-significant-control-statements/statement2',
       },
       notified_on: '2020-01-15',

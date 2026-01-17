@@ -162,9 +162,7 @@ describe('CompaniesHouseConnector', () => {
 
   describe('getCompanyProfile', () => {
     it('should get company profile by number', async () => {
-      nock(API_BASE)
-        .get('/company/12345678')
-        .reply(200, profileFixture);
+      nock(API_BASE).get('/company/12345678').reply(200, profileFixture);
 
       const result = await connector.getCompanyProfile('12345678');
 
@@ -180,9 +178,7 @@ describe('CompaniesHouseConnector', () => {
     });
 
     it('should handle dissolved company profile', async () => {
-      nock(API_BASE)
-        .get('/company/SC654321')
-        .reply(200, dissolvedProfileFixture);
+      nock(API_BASE).get('/company/SC654321').reply(200, dissolvedProfileFixture);
 
       const result = await connector.getCompanyProfile('SC654321');
 
@@ -194,9 +190,7 @@ describe('CompaniesHouseConnector', () => {
     });
 
     it('should normalize company number to uppercase', async () => {
-      nock(API_BASE)
-        .get('/company/SC123456')
-        .reply(200, profileFixture);
+      nock(API_BASE).get('/company/SC123456').reply(200, profileFixture);
 
       const result = await connector.getCompanyProfile('sc123456');
 
@@ -228,10 +222,7 @@ describe('CompaniesHouseConnector', () => {
     });
 
     it('should cache profile results', async () => {
-      nock(API_BASE)
-        .get('/company/12345678')
-        .once()
-        .reply(200, profileFixture);
+      nock(API_BASE).get('/company/12345678').once().reply(200, profileFixture);
 
       await connector.getCompanyProfile('12345678');
       const result = await connector.getCompanyProfile('12345678');
@@ -245,9 +236,7 @@ describe('CompaniesHouseConnector', () => {
 
   describe('getOfficers', () => {
     it('should get officers for a company', async () => {
-      nock(API_BASE)
-        .get('/company/12345678/officers')
-        .reply(200, officersFixture);
+      nock(API_BASE).get('/company/12345678/officers').reply(200, officersFixture);
 
       const result = await connector.getOfficers('12345678');
 
@@ -261,9 +250,7 @@ describe('CompaniesHouseConnector', () => {
     });
 
     it('should handle empty officers list', async () => {
-      nock(API_BASE)
-        .get('/company/00000001/officers')
-        .reply(200, emptyOfficersFixture);
+      nock(API_BASE).get('/company/00000001/officers').reply(200, emptyOfficersFixture);
 
       const result = await connector.getOfficers('00000001');
 
@@ -284,10 +271,7 @@ describe('CompaniesHouseConnector', () => {
     });
 
     it('should cache officers results', async () => {
-      nock(API_BASE)
-        .get('/company/12345678/officers')
-        .once()
-        .reply(200, officersFixture);
+      nock(API_BASE).get('/company/12345678/officers').once().reply(200, officersFixture);
 
       await connector.getOfficers('12345678');
       const result = await connector.getOfficers('12345678');
@@ -417,9 +401,7 @@ describe('CompaniesHouseConnector', () => {
 
   describe('error handling', () => {
     it('should handle network errors', async () => {
-      nock(API_BASE)
-        .get('/company/12345678')
-        .replyWithError('Network connection failed');
+      nock(API_BASE).get('/company/12345678').replyWithError('Network connection failed');
 
       const result = await connector.getCompanyProfile('12345678');
 
@@ -460,9 +442,7 @@ describe('CompaniesHouseConnector', () => {
     });
 
     it('should include evidence in error responses', async () => {
-      nock(API_BASE)
-        .get('/company/12345678')
-        .reply(404, {});
+      nock(API_BASE).get('/company/12345678').reply(404, {});
 
       const result = await connector.getCompanyProfile('12345678');
 
@@ -491,10 +471,7 @@ describe('CompaniesHouseConnector', () => {
 
   describe('cache management', () => {
     it('should clear cache', async () => {
-      nock(API_BASE)
-        .get('/company/12345678')
-        .twice()
-        .reply(200, profileFixture);
+      nock(API_BASE).get('/company/12345678').twice().reply(200, profileFixture);
 
       // First call
       await connector.getCompanyProfile('12345678');

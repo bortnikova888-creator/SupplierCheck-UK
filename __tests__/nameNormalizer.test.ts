@@ -57,12 +57,18 @@ describe('Name Normalizer', () => {
     });
 
     it('should handle complex company names', () => {
-      expect(normalizeCompanyName('SMITH & JONES HOLDINGS (UK) LIMITED')).toBe('SMITH AND JONES HOLDINGS UK');
-      expect(normalizeCompanyName("Johnson's Foods & Beverages Ltd")).toBe('JOHNSONS FOODS AND BEVERAGES');
+      expect(normalizeCompanyName('SMITH & JONES HOLDINGS (UK) LIMITED')).toBe(
+        'SMITH AND JONES HOLDINGS UK'
+      );
+      expect(normalizeCompanyName("Johnson's Foods & Beverages Ltd")).toBe(
+        'JOHNSONS FOODS AND BEVERAGES'
+      );
     });
 
     it('should handle Limited Liability Partnership suffix', () => {
-      expect(normalizeCompanyName('Northern Services Limited Liability Partnership')).toBe('NORTHERN SERVICES');
+      expect(normalizeCompanyName('Northern Services Limited Liability Partnership')).toBe(
+        'NORTHERN SERVICES'
+      );
     });
   });
 
@@ -94,7 +100,9 @@ describe('Name Normalizer', () => {
       // From the fixtures: ACME Solutions Ltd vs ACME Solutions Limited
       expect(namesMatch('ACME Solutions Ltd', 'ACME Solutions Limited')).toBe(true);
       // Smith & Jones Holdings vs Smith and Jones Holdings Ltd
-      expect(namesMatch('Smith & Jones Holdings Ltd', 'Smith and Jones Holdings Limited')).toBe(true);
+      expect(namesMatch('Smith & Jones Holdings Ltd', 'Smith and Jones Holdings Limited')).toBe(
+        true
+      );
       // Global Trading PLC variations
       expect(namesMatch('Global Trading PLC', 'Global Trading Public Limited Company')).toBe(true);
     });

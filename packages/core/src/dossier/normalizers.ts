@@ -22,9 +22,7 @@ import { sortNaturesOfControl, sortSicCodes } from './sort';
 /**
  * Normalize Companies House address to domain Address.
  */
-export function normalizeAddress(
-  addr: CompaniesHouseAddress | undefined
-): Address {
+export function normalizeAddress(addr: CompaniesHouseAddress | undefined): Address {
   return {
     line1: addr?.address_line_1 || addr?.premises || '',
     line2: addr?.address_line_2,

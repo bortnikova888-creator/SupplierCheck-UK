@@ -7,7 +7,7 @@
  * IMPORTANT: This module should NEVER be imported in client-side code.
  */
 
-import { parseServerEnv, type ServerEnv, serverEnvSchema } from "./env";
+import { parseServerEnv, type ServerEnv, serverEnvSchema } from './env';
 
 let serverConfig: ServerEnv | null = null;
 
@@ -29,9 +29,7 @@ export function getServerConfig(): ServerEnv {
  * Initialize server config with custom environment
  * Useful for testing or custom deployment scenarios
  */
-export function initServerConfig(
-  env: Record<string, string | undefined>
-): ServerEnv {
+export function initServerConfig(env: Record<string, string | undefined>): ServerEnv {
   serverConfig = parseServerEnv(env);
   return serverConfig;
 }

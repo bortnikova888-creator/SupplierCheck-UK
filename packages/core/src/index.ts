@@ -18,3 +18,6 @@ export function createHealthResponse(service: string): HealthResponse {
 
 // Dossier builder exports
 export * from './dossier';
+
+// Risk flags engine exports
+export * from './riskFlags';

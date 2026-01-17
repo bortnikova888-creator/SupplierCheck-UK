@@ -11,7 +11,12 @@ import type {
   CSVColumnMapping,
   RegistryEvidence,
 } from '../types';
-import { parseCSV, detectColumnMapping, getHeadersFromRows, getMappedValue } from '../lib/csvParser';
+import {
+  parseCSV,
+  detectColumnMapping,
+  getHeadersFromRows,
+  getMappedValue,
+} from '../lib/csvParser';
 import {
   normalizeCompanyName,
   normalizeCompanyNumber,
@@ -124,7 +129,11 @@ export function findCompanyInCSV(
   entry: CSVCacheEntry,
   companyNumber: string,
   companyName: string
-): { row: ModernSlaveryCSVRow; rowIndex: number; matchMethod: 'company_number' | 'normalized_name' } | null {
+): {
+  row: ModernSlaveryCSVRow;
+  rowIndex: number;
+  matchMethod: 'company_number' | 'normalized_name';
+} | null {
   const { rows, mapping } = entry;
 
   // Normalize inputs
@@ -157,7 +166,11 @@ export function findCompanyInCSV(
 /**
  * Extract the year from a CSV row if possible.
  */
-function extractYear(row: ModernSlaveryCSVRow, mapping: CSVColumnMapping, fallbackYear: number): number {
+function extractYear(
+  row: ModernSlaveryCSVRow,
+  mapping: CSVColumnMapping,
+  fallbackYear: number
+): number {
   const yearValue = getMappedValue(row, mapping, 'year');
   if (yearValue) {
     const parsed = parseInt(yearValue, 10);

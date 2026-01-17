@@ -10,7 +10,10 @@ import {
 
 // Load test fixtures
 const fixturesDir = join(__dirname, 'fixtures');
-const csvWithCompanyNumber = readFileSync(join(fixturesDir, 'registry-with-company-number.csv'), 'utf-8');
+const csvWithCompanyNumber = readFileSync(
+  join(fixturesDir, 'registry-with-company-number.csv'),
+  'utf-8'
+);
 const csvNameOnly = readFileSync(join(fixturesDir, 'registry-name-only.csv'), 'utf-8');
 
 describe('CSV Parser', () => {
@@ -21,7 +24,9 @@ describe('CSV Parser', () => {
       expect(rows.length).toBe(8);
       expect(rows[0]['Company Name']).toBe('ACME Solutions Ltd');
       expect(rows[0]['Company Number']).toBe('01234567');
-      expect(rows[0]['Statement URL']).toBe('https://registry.example.com/statements/01234567/2023');
+      expect(rows[0]['Statement URL']).toBe(
+        'https://registry.example.com/statements/01234567/2023'
+      );
     });
 
     it('should parse CSV without company number column (name only)', () => {

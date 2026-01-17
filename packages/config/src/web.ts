@@ -8,7 +8,7 @@
  * All sensitive credentials must be accessed through the server module.
  */
 
-import { parseWebEnv, type WebEnv, webEnvSchema } from "./env";
+import { parseWebEnv, type WebEnv, webEnvSchema } from './env';
 
 let webConfig: WebEnv | null = null;
 
@@ -24,7 +24,7 @@ export function getWebConfig(): WebEnv {
     // In browser environments, Vite exposes env vars via import.meta.env
     // We merge with process.env for SSR compatibility
     const env =
-      typeof window !== "undefined" && typeof import.meta !== "undefined"
+      typeof window !== 'undefined' && typeof import.meta !== 'undefined'
         ? { ...import.meta.env }
         : process.env;
 
@@ -37,9 +37,7 @@ export function getWebConfig(): WebEnv {
  * Initialize web config with custom environment
  * Useful for testing or custom scenarios
  */
-export function initWebConfig(
-  env: Record<string, string | undefined>
-): WebEnv {
+export function initWebConfig(env: Record<string, string | undefined>): WebEnv {
   webConfig = parseWebEnv(env);
   return webConfig;
 }

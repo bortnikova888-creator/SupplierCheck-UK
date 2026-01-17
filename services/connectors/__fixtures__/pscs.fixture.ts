@@ -61,9 +61,7 @@ export const pscsFixture: PSCsResponse = {
         title: 'Ms',
       },
       nationality: 'British',
-      natures_of_control: [
-        'ownership-of-shares-25-to-50-percent',
-      ],
+      natures_of_control: ['ownership-of-shares-25-to-50-percent'],
       notified_on: '2021-06-20',
     },
     {
@@ -91,16 +89,15 @@ export const pscsFixture: PSCsResponse = {
         title: 'Mr',
       },
       nationality: 'British',
-      natures_of_control: [
-        'ownership-of-shares-25-to-50-percent',
-      ],
+      natures_of_control: ['ownership-of-shares-25-to-50-percent'],
       notified_on: '2020-01-15',
     },
   ],
   items_per_page: 25,
   kind: 'persons-with-significant-control#list',
   links: {
-    persons_with_significant_control_statements: '/company/12345678/persons-with-significant-control-statements',
+    persons_with_significant_control_statements:
+      '/company/12345678/persons-with-significant-control-statements',
     self: '/company/12345678/persons-with-significant-control',
   },
   start_index: 0,
@@ -155,7 +152,8 @@ export const emptyPscsFixture: PSCsResponse = {
   items_per_page: 25,
   kind: 'persons-with-significant-control#list',
   links: {
-    persons_with_significant_control_statements: '/company/00000001/persons-with-significant-control-statements',
+    persons_with_significant_control_statements:
+      '/company/00000001/persons-with-significant-control-statements',
     self: '/company/00000001/persons-with-significant-control',
   },
   start_index: 0,

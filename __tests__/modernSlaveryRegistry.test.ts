@@ -14,11 +14,17 @@ import type { CSVColumnMapping, ModernSlaveryCSVRow } from '../types';
 
 // Load test fixtures
 const fixturesDir = join(__dirname, 'fixtures');
-const csvWithCompanyNumber = readFileSync(join(fixturesDir, 'registry-with-company-number.csv'), 'utf-8');
+const csvWithCompanyNumber = readFileSync(
+  join(fixturesDir, 'registry-with-company-number.csv'),
+  'utf-8'
+);
 const csvNameOnly = readFileSync(join(fixturesDir, 'registry-name-only.csv'), 'utf-8');
 
 // Helper to create cache entries from fixture data
-function createCacheEntry(csvText: string, year: number): {
+function createCacheEntry(
+  csvText: string,
+  year: number
+): {
   rows: ModernSlaveryCSVRow[];
   mapping: CSVColumnMapping;
   fetchedAt: number;
@@ -170,7 +176,9 @@ describe('Modern Slavery Registry Connector', () => {
 
       expect(result.found).toBe(true);
       expect(result.latestYear).toBe(2023);
-      expect(result.statementSummaryUrl).toBe('https://registry.example.com/statements/01234567/2023');
+      expect(result.statementSummaryUrl).toBe(
+        'https://registry.example.com/statements/01234567/2023'
+      );
       expect(result.evidence.length).toBe(1);
       expect(result.evidence[0].matchMethod).toBe('company_number');
     });

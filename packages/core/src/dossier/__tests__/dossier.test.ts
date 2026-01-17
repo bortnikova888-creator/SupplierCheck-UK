@@ -4,11 +4,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import {
-  buildDossier,
-  serializeDossier,
-  verifyDeterminism,
-} from '../builder';
+import { buildDossier, serializeDossier, verifyDeterminism } from '../builder';
 import {
   normalizeCompany,
   normalizeOfficers,

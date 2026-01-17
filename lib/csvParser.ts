@@ -192,7 +192,7 @@ export function detectColumnMapping(headers: string[]): CSVColumnMapping {
  * Check if a string matches any of the given patterns.
  */
 function matchesAnyPattern(value: string, patterns: RegExp[]): boolean {
-  return patterns.some(pattern => pattern.test(value));
+  return patterns.some((pattern) => pattern.test(value));
 }
 
 /**

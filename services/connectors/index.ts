@@ -7,16 +7,11 @@ export { Cache, COMPANIES_HOUSE_TTL } from './cache';
 export type { CacheOptions } from './cache';
 
 // Companies House Connector
-export {
-  CompaniesHouseConnector,
-  createCompaniesHouseConnector,
-} from './companies-house';
+export { CompaniesHouseConnector, createCompaniesHouseConnector } from './companies-house';
 export type { CompaniesHouseConnectorConfig } from './companies-house';
 
 // Companies House Types
-export {
-  ConnectorErrorCode,
-} from './companies-house.types';
+export { ConnectorErrorCode } from './companies-house.types';
 
 export type {
   // API Response Types
