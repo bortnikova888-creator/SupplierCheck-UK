@@ -1,0 +1,26 @@
+app = "suppliercheck-uk"
+primary_region = "lhr"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  HOST = "0.0.0.0"
+  PORT = "3001"
+  CACHE_DB_PATH = "/data/cache.db"
+
+[mounts]
+  source = "suppliercheck_data"
+  destination = "/data"
+
+[[services]]
+  internal_port = 3001
+  protocol = "tcp"
+
+  [[services.ports]]
+    handlers = ["http"]
+    port = 80
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443

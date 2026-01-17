@@ -5,6 +5,8 @@ node_modules
 dist
 build
 *.local
+services/**/*.js
+services/**/*.js.map
 
 # Logs
 logs

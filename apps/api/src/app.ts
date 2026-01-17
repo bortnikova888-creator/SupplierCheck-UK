@@ -1,6 +1,9 @@
+import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
 import Fastify, { type FastifyInstance, type FastifyReply } from 'fastify';
 import cors from '@fastify/cors';
 import rateLimit from '@fastify/rate-limit';
+import { chromium, type Browser } from 'playwright';
 import {
   buildDossier,
   buildDossierWithRiskFlags,
@@ -34,6 +37,7 @@ export interface ApiAppOptions {
   env: ServerEnv;
   connector?: CompaniesHouseConnector;
   registryConfig?: RegistryConfig;
+  webBuildPath?: string;
 }
 
 interface ApiErrorPayload {
@@ -165,6 +169,17 @@ async function buildDossierInput(
   return { input };
 }
 
+let sharedBrowser: Browser | null = null;
+
+async function getSharedBrowser(): Promise<Browser> {
+  if (!sharedBrowser) {
+    sharedBrowser = await chromium.launch({
+      args: ['--no-sandbox', '--disable-dev-shm-usage'],
+    });
+  }
+  return sharedBrowser;
+}
+
 export async function buildApiApp(options: ApiAppOptions): Promise<FastifyInstance> {
   const env = options.env;
   const connector = options.connector ?? createCompaniesHouseConnector(env.COMPANIES_HOUSE_API_KEY);
@@ -280,13 +295,68 @@ export async function buildApiApp(options: ApiAppOptions): Promise<FastifyInstan
     );
     const html = renderDossierHtml(dossierWithFlags, dossierResult.evidence);
 
+    const browser = await getSharedBrowser();
+    const page = await browser.newPage();
+    await page.setContent(html, { waitUntil: 'networkidle' });
+    const pdf = await page.pdf({
+      format: 'A4',
+      printBackground: true,
+    });
+    await page.close();
+
     reply.type('application/pdf');
-    return html;
+    return pdf;
   });
 
   app.setErrorHandler((error, _request, reply) => {
     app.log.error(error);
     return sendError(reply, 500, 'INTERNAL_ERROR', 'Unexpected server error.');
+  });
+
+  if (options.webBuildPath) {
+    const indexPath = join(options.webBuildPath, 'index.html');
+
+    app.get('/', async (_request, reply) => {
+      try {
+        const html = await readFile(indexPath, 'utf8');
+        reply.type('text/html; charset=utf-8');
+        return html;
+      } catch {
+        return sendError(reply, 404, 'NOT_FOUND', 'Web build not found.');
+      }
+    });
+
+    app.get('/*', async (request, reply) => {
+      const params = request.params as { '*': string };
+      const filePath = join(options.webBuildPath, params['*'] ?? '');
+      try {
+        const buffer = await readFile(filePath);
+        const contentType = filePath.endsWith('.css')
+          ? 'text/css; charset=utf-8'
+          : filePath.endsWith('.js')
+            ? 'text/javascript; charset=utf-8'
+            : filePath.endsWith('.svg')
+              ? 'image/svg+xml'
+              : filePath.endsWith('.png')
+                ? 'image/png'
+                : filePath.endsWith('.jpg') || filePath.endsWith('.jpeg')
+                  ? 'image/jpeg'
+                  : filePath.endsWith('.ico')
+                    ? 'image/x-icon'
+                    : 'application/octet-stream';
+        reply.type(contentType);
+        return buffer;
+      } catch {
+        return sendError(reply, 404, 'NOT_FOUND', 'Asset not found.');
+      }
+    });
+  }
+
+  app.addHook('onClose', async () => {
+    if (sharedBrowser) {
+      await sharedBrowser.close();
+      sharedBrowser = null;
+    }
   });
 
   return app;

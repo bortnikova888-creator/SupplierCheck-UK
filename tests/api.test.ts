@@ -122,7 +122,7 @@ describe('API Health Check', () => {
     expect(response.text).toContain('<html');
   });
 
-  it('GET /api/company/:companyNumber/report.pdf returns HTML source for PDF', async () => {
+  it('GET /api/company/:companyNumber/report.pdf returns PDF bytes', async () => {
     nock('https://api.company-information.service.gov.uk')
       .get('/company/12345678')
       .reply(200, profileFixture)
@@ -138,16 +138,14 @@ describe('API Health Check', () => {
         'Company Number,Company Name,Statement URL,Date Signed\n12345678,ACME LTD,https://example.com,2024-01-01'
       );
 
-    const response = await supertest(app.server).get('/api/company/12345678/report.pdf');
+    const response = await supertest(app.server).get('/api/company/12345678/report.pdf').buffer(true);
 
     expect(response.statusCode).toBe(200);
-    const pdfBody =
-      typeof response.text === 'string'
-        ? response.text
-        : Buffer.isBuffer(response.body)
-          ? response.body.toString('utf8')
-          : '';
-    expect(pdfBody).toContain('<html');
+    expect(response.headers['content-type']).toContain('application/pdf');
+    expect(Buffer.isBuffer(response.body)).toBe(true);
+    const pdfBuffer = response.body as Buffer;
+    expect(pdfBuffer.subarray(0, 4).toString('utf8')).toBe('%PDF');
+    expect(pdfBuffer.length).toBeGreaterThan(1000);
   });
 
   it('GET /api/search without query returns structured error', async () => {
