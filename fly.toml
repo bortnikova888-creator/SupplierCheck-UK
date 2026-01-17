@@ -1,0 +1,34 @@
+app = "suppliercheck-api"
+primary_region = "lhr"
+
+[build]
+  builder = "paketobuildpacks/builder:base"
+  buildpacks = ["gcr.io/paketo-buildpacks/nodejs"]
+
+[build.args]
+  BP_NODE_PACKAGE_MANAGER = "pnpm"
+  BP_NODE_RUN_SCRIPTS = "build"
+
+[env]
+  HOST = "0.0.0.0"
+  PORT = "8080"
+  LOG_LEVEL = "info"
+  NODE_ENV = "production"
+  RATE_LIMIT_MAX = "100"
+  RATE_LIMIT_WINDOW_MS = "60000"
+  CACHE_DB_PATH = "/data/cache.sqlite"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
+
+[processes]
+  app = "pnpm --filter @app/api start"
+
+[[mounts]]
+  source = "cache_data"
+  destination = "/data"
