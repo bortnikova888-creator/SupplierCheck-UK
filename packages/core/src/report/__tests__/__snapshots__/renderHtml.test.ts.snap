@@ -1,0 +1,1216 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`renderDossierHtml > snapshot tests > should render active company dossier (scenario 1) > scenario1-active-company-html 1`] = `
+"<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier: EXAMPLE TRADING LIMITED</title>
+<style>
+* {
+box-sizing: border-box;
+}
+body {
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+font-size: 14px;
+line-height: 1.5;
+color: #212529;
+background: #fff;
+margin: 0;
+padding: 20px;
+}
+.container {
+max-width: 900px;
+margin: 0 auto;
+}
+h1 {
+font-size: 24px;
+font-weight: 600;
+margin: 0 0 8px 0;
+color: #1a1a1a;
+}
+h2 {
+font-size: 18px;
+font-weight: 600;
+margin: 24px 0 12px 0;
+padding-bottom: 8px;
+border-bottom: 2px solid #e9ecef;
+color: #1a1a1a;
+}
+h3 {
+font-size: 16px;
+font-weight: 600;
+margin: 16px 0 8px 0;
+color: #343a40;
+}
+.header {
+margin-bottom: 24px;
+padding-bottom: 16px;
+border-bottom: 3px solid #1a1a1a;
+}
+.header-meta {
+display: flex;
+gap: 16px;
+flex-wrap: wrap;
+margin-top: 8px;
+}
+.header-item {
+display: flex;
+align-items: center;
+gap: 4px;
+}
+.header-label {
+font-weight: 600;
+color: #6c757d;
+}
+.status-badge {
+display: inline-block;
+padding: 2px 8px;
+border-radius: 4px;
+font-size: 12px;
+font-weight: 600;
+text-transform: uppercase;
+}
+.status-active {
+background: #d4edda;
+color: #155724;
+}
+.status-dissolved {
+background: #f8d7da;
+color: #721c24;
+}
+.status-other {
+background: #fff3cd;
+color: #856404;
+}
+.flags-section {
+background: #f8f9fa;
+border-radius: 8px;
+padding: 16px;
+margin-bottom: 24px;
+}
+.flags-section h2 {
+margin-top: 0;
+border-bottom: none;
+padding-bottom: 0;
+}
+.flag-item {
+display: flex;
+align-items: flex-start;
+gap: 12px;
+padding: 12px 0;
+border-bottom: 1px solid #dee2e6;
+}
+.flag-item:last-child {
+border-bottom: none;
+padding-bottom: 0;
+}
+.flag-badge {
+display: inline-block;
+padding: 2px 8px;
+border-radius: 4px;
+font-size: 11px;
+font-weight: 700;
+text-transform: uppercase;
+color: #fff;
+white-space: nowrap;
+}
+.severity-high { background: #dc3545; }
+.severity-medium { background: #fd7e14; }
+.severity-low { background: #ffc107; color: #212529; }
+.severity-info { background: #17a2b8; }
+.flag-content {
+flex: 1;
+}
+.flag-title {
+font-weight: 600;
+margin-bottom: 4px;
+}
+.flag-explanation {
+color: #6c757d;
+font-size: 13px;
+}
+.flag-link {
+margin-top: 4px;
+}
+.no-flags {
+color: #28a745;
+font-weight: 500;
+}
+table {
+width: 100%;
+border-collapse: collapse;
+margin: 12px 0;
+}
+th, td {
+text-align: left;
+padding: 8px 12px;
+border: 1px solid #dee2e6;
+}
+th {
+background: #f8f9fa;
+font-weight: 600;
+font-size: 13px;
+color: #495057;
+}
+td {
+font-size: 13px;
+}
+tr:nth-child(even) {
+background: #f8f9fa;
+}
+.detail-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+gap: 12px;
+margin: 12px 0;
+}
+.detail-item {
+padding: 8px 12px;
+background: #f8f9fa;
+border-radius: 4px;
+}
+.detail-label {
+font-size: 12px;
+color: #6c757d;
+font-weight: 600;
+text-transform: uppercase;
+margin-bottom: 2px;
+}
+.detail-value {
+color: #212529;
+}
+.nature-list {
+margin: 0;
+padding: 0;
+list-style: none;
+}
+.nature-list li {
+font-size: 12px;
+padding: 2px 0;
+}
+.modern-slavery-found {
+padding: 12px 16px;
+background: #d4edda;
+border-radius: 8px;
+border-left: 4px solid #28a745;
+}
+.modern-slavery-missing {
+padding: 12px 16px;
+background: #fff3cd;
+border-radius: 8px;
+border-left: 4px solid #ffc107;
+}
+.evidence-section {
+margin-top: 32px;
+padding-top: 16px;
+border-top: 2px solid #e9ecef;
+}
+.evidence-item {
+padding: 8px 0;
+border-bottom: 1px solid #e9ecef;
+font-size: 13px;
+}
+.evidence-item:last-child {
+border-bottom: none;
+}
+.evidence-id {
+font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+background: #e9ecef;
+padding: 2px 6px;
+border-radius: 3px;
+font-size: 12px;
+}
+.evidence-meta {
+color: #6c757d;
+font-size: 12px;
+margin-top: 2px;
+}
+a {
+color: #0056b3;
+text-decoration: none;
+}
+a:hover {
+text-decoration: underline;
+}
+.footer {
+margin-top: 32px;
+padding-top: 16px;
+border-top: 1px solid #e9ecef;
+font-size: 12px;
+color: #6c757d;
+text-align: center;
+}
+.empty-state {
+color: #6c757d;
+font-style: italic;
+padding: 12px;
+}
+/* Print styles */
+@media print {
+body {
+padding: 0;
+font-size: 12px;
+}
+.container {
+max-width: none;
+}
+h2 {
+break-after: avoid;
+}
+table {
+break-inside: avoid;
+}
+.flag-item {
+break-inside: avoid;
+}
+a {
+color: #000;
+}
+a[href]::after {
+content: " (" attr(href) ")";
+font-size: 10px;
+color: #6c757d;
+}
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>EXAMPLE TRADING LIMITED</h1>
+<div class="header-meta">
+<div class="header-item">
+<span class="header-label">Company No:</span>
+<span>12345678</span>
+</div>
+<div class="header-item">
+<span class="header-label">Status:</span>
+<span class="status-badge status-active">active</span>
+</div>
+<div class="header-item">
+<span class="header-label">Type:</span>
+<span>LTD</span>
+</div>
+<div class="header-item">
+<span class="header-label">Incorporated:</span>
+<span>15 Jan 2020</span>
+</div>
+</div>
+</div>
+<section class="flags-section">
+<h2>Risk Flags (1)</h2>
+<div class="flag-item">
+<span class="flag-badge severity-medium">MEDIUM</span>
+<div class="flag-content">
+<div class="flag-title">F7: Modern slavery statement missing</div>
+<div class="flag-explanation">No modern slavery statement found. Large companies (turnover &gt; £36M) are legally required to publish one annually.</div>
+<div class="flag-link"><a href="https://find-and-update.company-information.service.gov.uk/company/12345678" target="_blank">View evidence</a></div>
+</div>
+</div>
+</section>
+<section>
+<h2>Company Details</h2>
+<div class="detail-grid">
+<div class="detail-item">
+<div class="detail-label">Registered Office</div>
+<div class="detail-value">123 Business Park, Enterprise Way, Manchester, M1 2AB, United Kingdom</div>
+</div>
+<div class="detail-item">
+<div class="detail-label">SIC Codes</div>
+<div class="detail-value">62020, 62090</div>
+</div>
+</div>
+</section>
+<section>
+<h2>Officers (3)</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Role</th>
+<th>Appointed</th>
+<th>Resigned</th>
+<th>Nationality</th>
+<th>DOB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BROWN, Michael</td>
+<td>Secretary</td>
+<td>15 Jan 2020</td>
+<td>30 Jun 2023</td>
+<td>British</td>
+<td>—</td>
+</tr>
+<tr>
+<td>SMITH, John David</td>
+<td>Director</td>
+<td>15 Jan 2020</td>
+<td>—</td>
+<td>British</td>
+<td>6/1985</td>
+</tr>
+<tr>
+<td>JONES, Sarah Elizabeth</td>
+<td>Director</td>
+<td>1 Feb 2020</td>
+<td>—</td>
+<td>British</td>
+<td>11/1978</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section>
+<h2>Persons with Significant Control (2)</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Nature of Control</th>
+<th>Notified</th>
+<th>Ceased</th>
+<th>Nationality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mr John David Smith</td>
+<td><ul class="nature-list"><li>Ownership of Shares 75 to 100 Percent</li><li>Right to Appoint and Remove Directors</li><li>Voting Rights 75 to 100 Percent</li></ul></td>
+<td>15 Jan 2020</td>
+<td>—</td>
+<td>British</td>
+</tr>
+<tr>
+<td>Ms Jane Doe</td>
+<td><ul class="nature-list"><li>Ownership of Shares 25 to 50 Percent</li></ul></td>
+<td>20 Jun 2021</td>
+<td>—</td>
+<td>British</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section>
+<h2>Modern Slavery Statement</h2>
+<div class="modern-slavery-missing">
+No modern slavery statement found in the registry.
+</div>
+</section>
+<section class="evidence-section">
+<h2>Evidence Appendix</h2>
+<p>Data sources used to compile this dossier:</p>
+<div class="evidence-item">
+<span class="evidence-id">013e0390a3e1</span>
+<a href="https://find-and-update.company-information.service.gov.uk/company/12345678/persons-with-significant-control" target="_blank">https://find-and-update.company-information.service.gov.uk/company/12345678/persons-with-significant-control</a>
+<div class="evidence-meta">
+Fetched: 2024-01-15T10:00:02.000Z (Fresh)
+</div>
+</div>
+<div class="evidence-item">
+<span class="evidence-id">d988beec8708</span>
+<a href="https://find-and-update.company-information.service.gov.uk/company/12345678/officers" target="_blank">https://find-and-update.company-information.service.gov.uk/company/12345678/officers</a>
+<div class="evidence-meta">
+Fetched: 2024-01-15T10:00:01.000Z (Fresh)
+</div>
+</div>
+<div class="evidence-item">
+<span class="evidence-id">feae074c6851</span>
+<a href="https://find-and-update.company-information.service.gov.uk/company/12345678" target="_blank">https://find-and-update.company-information.service.gov.uk/company/12345678</a>
+<div class="evidence-meta">
+Fetched: 2024-01-15T10:00:00.000Z (Fresh)
+</div>
+</div>
+</section>
+<footer class="footer">
+Generated: 2024-01-15T12:00:00.000Z
+</footer>
+</div>
+</body>
+</html>"
+`;
+
+exports[`renderDossierHtml > snapshot tests > should render company with modern slavery statement (scenario 3) > scenario3-with-modern-slavery-html 1`] = `
+"<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier: BIG CORPORATION PLC</title>
+<style>
+* {
+box-sizing: border-box;
+}
+body {
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+font-size: 14px;
+line-height: 1.5;
+color: #212529;
+background: #fff;
+margin: 0;
+padding: 20px;
+}
+.container {
+max-width: 900px;
+margin: 0 auto;
+}
+h1 {
+font-size: 24px;
+font-weight: 600;
+margin: 0 0 8px 0;
+color: #1a1a1a;
+}
+h2 {
+font-size: 18px;
+font-weight: 600;
+margin: 24px 0 12px 0;
+padding-bottom: 8px;
+border-bottom: 2px solid #e9ecef;
+color: #1a1a1a;
+}
+h3 {
+font-size: 16px;
+font-weight: 600;
+margin: 16px 0 8px 0;
+color: #343a40;
+}
+.header {
+margin-bottom: 24px;
+padding-bottom: 16px;
+border-bottom: 3px solid #1a1a1a;
+}
+.header-meta {
+display: flex;
+gap: 16px;
+flex-wrap: wrap;
+margin-top: 8px;
+}
+.header-item {
+display: flex;
+align-items: center;
+gap: 4px;
+}
+.header-label {
+font-weight: 600;
+color: #6c757d;
+}
+.status-badge {
+display: inline-block;
+padding: 2px 8px;
+border-radius: 4px;
+font-size: 12px;
+font-weight: 600;
+text-transform: uppercase;
+}
+.status-active {
+background: #d4edda;
+color: #155724;
+}
+.status-dissolved {
+background: #f8d7da;
+color: #721c24;
+}
+.status-other {
+background: #fff3cd;
+color: #856404;
+}
+.flags-section {
+background: #f8f9fa;
+border-radius: 8px;
+padding: 16px;
+margin-bottom: 24px;
+}
+.flags-section h2 {
+margin-top: 0;
+border-bottom: none;
+padding-bottom: 0;
+}
+.flag-item {
+display: flex;
+align-items: flex-start;
+gap: 12px;
+padding: 12px 0;
+border-bottom: 1px solid #dee2e6;
+}
+.flag-item:last-child {
+border-bottom: none;
+padding-bottom: 0;
+}
+.flag-badge {
+display: inline-block;
+padding: 2px 8px;
+border-radius: 4px;
+font-size: 11px;
+font-weight: 700;
+text-transform: uppercase;
+color: #fff;
+white-space: nowrap;
+}
+.severity-high { background: #dc3545; }
+.severity-medium { background: #fd7e14; }
+.severity-low { background: #ffc107; color: #212529; }
+.severity-info { background: #17a2b8; }
+.flag-content {
+flex: 1;
+}
+.flag-title {
+font-weight: 600;
+margin-bottom: 4px;
+}
+.flag-explanation {
+color: #6c757d;
+font-size: 13px;
+}
+.flag-link {
+margin-top: 4px;
+}
+.no-flags {
+color: #28a745;
+font-weight: 500;
+}
+table {
+width: 100%;
+border-collapse: collapse;
+margin: 12px 0;
+}
+th, td {
+text-align: left;
+padding: 8px 12px;
+border: 1px solid #dee2e6;
+}
+th {
+background: #f8f9fa;
+font-weight: 600;
+font-size: 13px;
+color: #495057;
+}
+td {
+font-size: 13px;
+}
+tr:nth-child(even) {
+background: #f8f9fa;
+}
+.detail-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+gap: 12px;
+margin: 12px 0;
+}
+.detail-item {
+padding: 8px 12px;
+background: #f8f9fa;
+border-radius: 4px;
+}
+.detail-label {
+font-size: 12px;
+color: #6c757d;
+font-weight: 600;
+text-transform: uppercase;
+margin-bottom: 2px;
+}
+.detail-value {
+color: #212529;
+}
+.nature-list {
+margin: 0;
+padding: 0;
+list-style: none;
+}
+.nature-list li {
+font-size: 12px;
+padding: 2px 0;
+}
+.modern-slavery-found {
+padding: 12px 16px;
+background: #d4edda;
+border-radius: 8px;
+border-left: 4px solid #28a745;
+}
+.modern-slavery-missing {
+padding: 12px 16px;
+background: #fff3cd;
+border-radius: 8px;
+border-left: 4px solid #ffc107;
+}
+.evidence-section {
+margin-top: 32px;
+padding-top: 16px;
+border-top: 2px solid #e9ecef;
+}
+.evidence-item {
+padding: 8px 0;
+border-bottom: 1px solid #e9ecef;
+font-size: 13px;
+}
+.evidence-item:last-child {
+border-bottom: none;
+}
+.evidence-id {
+font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+background: #e9ecef;
+padding: 2px 6px;
+border-radius: 3px;
+font-size: 12px;
+}
+.evidence-meta {
+color: #6c757d;
+font-size: 12px;
+margin-top: 2px;
+}
+a {
+color: #0056b3;
+text-decoration: none;
+}
+a:hover {
+text-decoration: underline;
+}
+.footer {
+margin-top: 32px;
+padding-top: 16px;
+border-top: 1px solid #e9ecef;
+font-size: 12px;
+color: #6c757d;
+text-align: center;
+}
+.empty-state {
+color: #6c757d;
+font-style: italic;
+padding: 12px;
+}
+/* Print styles */
+@media print {
+body {
+padding: 0;
+font-size: 12px;
+}
+.container {
+max-width: none;
+}
+h2 {
+break-after: avoid;
+}
+table {
+break-inside: avoid;
+}
+.flag-item {
+break-inside: avoid;
+}
+a {
+color: #000;
+}
+a[href]::after {
+content: " (" attr(href) ")";
+font-size: 10px;
+color: #6c757d;
+}
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>BIG CORPORATION PLC</h1>
+<div class="header-meta">
+<div class="header-item">
+<span class="header-label">Company No:</span>
+<span>00123456</span>
+</div>
+<div class="header-item">
+<span class="header-label">Status:</span>
+<span class="status-badge status-active">active</span>
+</div>
+<div class="header-item">
+<span class="header-label">Type:</span>
+<span>PLC</span>
+</div>
+<div class="header-item">
+<span class="header-label">Incorporated:</span>
+<span>1 Mar 1990</span>
+</div>
+</div>
+</div>
+<section class="flags-section">
+<h2>Risk Flags</h2>
+<p class="no-flags">No risk flags identified</p>
+</section>
+<section>
+<h2>Company Details</h2>
+<div class="detail-grid">
+<div class="detail-item">
+<div class="detail-label">Registered Office</div>
+<div class="detail-value">1 Corporate Tower, Financial District, London, EC1A 1BB, England</div>
+</div>
+<div class="detail-item">
+<div class="detail-label">SIC Codes</div>
+<div class="detail-value">10110, 10120, 10130</div>
+</div>
+</div>
+</section>
+<section>
+<h2>Officers (1)</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Role</th>
+<th>Appointed</th>
+<th>Resigned</th>
+<th>Nationality</th>
+<th>DOB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LORD CHAIRMAN, Richard</td>
+<td>Director</td>
+<td>1 Jan 2010</td>
+<td>—</td>
+<td>British</td>
+<td>1/1955</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section>
+<h2>Persons with Significant Control (1)</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Nature of Control</th>
+<th>Notified</th>
+<th>Ceased</th>
+<th>Nationality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PARENT HOLDINGS LTD</td>
+<td><ul class="nature-list"><li>Ownership of Shares 75 to 100 Percent</li><li>Voting Rights 75 to 100 Percent</li></ul></td>
+<td>1 Apr 2019</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section>
+<h2>Modern Slavery Statement</h2>
+<div class="modern-slavery-found">
+<p><strong>Statement found</strong></p>
+<p><a href="https://modern-slavery-statement-registry.service.gov.uk/statement-summary/12345" target="_blank">View statement</a></p>
+</div>
+</section>
+<section class="evidence-section">
+<h2>Evidence Appendix</h2>
+<p>Data sources used to compile this dossier:</p>
+<div class="evidence-item">
+<span class="evidence-id">5f1440fec302</span>
+<a href="https://find-and-update.company-information.service.gov.uk/company/00123456/officers" target="_blank">https://find-and-update.company-information.service.gov.uk/company/00123456/officers</a>
+<div class="evidence-meta">
+Fetched: 2024-01-15T12:00:01.000Z (Fresh)
+</div>
+</div>
+<div class="evidence-item">
+<span class="evidence-id">60eee444c8cd</span>
+<a href="https://find-and-update.company-information.service.gov.uk/company/00123456" target="_blank">https://find-and-update.company-information.service.gov.uk/company/00123456</a>
+<div class="evidence-meta">
+Fetched: 2024-01-15T12:00:00.000Z (Fresh)
+</div>
+</div>
+<div class="evidence-item">
+<span class="evidence-id">855f8c173fe6</span>
+<a href="https://find-and-update.company-information.service.gov.uk/company/00123456/persons-with-significant-control" target="_blank">https://find-and-update.company-information.service.gov.uk/company/00123456/persons-with-significant-control</a>
+<div class="evidence-meta">
+Fetched: 2024-01-15T12:00:02.000Z (Fresh)
+</div>
+</div>
+</section>
+<footer class="footer">
+Generated: 2024-01-15T12:00:00.000Z
+</footer>
+</div>
+</body>
+</html>"
+`;
+
+exports[`renderDossierHtml > snapshot tests > should render dissolved company dossier (scenario 2) > scenario2-dissolved-company-html 1`] = `
+"<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier: DEFUNCT ENTERPRISES LTD</title>
+<style>
+* {
+box-sizing: border-box;
+}
+body {
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+font-size: 14px;
+line-height: 1.5;
+color: #212529;
+background: #fff;
+margin: 0;
+padding: 20px;
+}
+.container {
+max-width: 900px;
+margin: 0 auto;
+}
+h1 {
+font-size: 24px;
+font-weight: 600;
+margin: 0 0 8px 0;
+color: #1a1a1a;
+}
+h2 {
+font-size: 18px;
+font-weight: 600;
+margin: 24px 0 12px 0;
+padding-bottom: 8px;
+border-bottom: 2px solid #e9ecef;
+color: #1a1a1a;
+}
+h3 {
+font-size: 16px;
+font-weight: 600;
+margin: 16px 0 8px 0;
+color: #343a40;
+}
+.header {
+margin-bottom: 24px;
+padding-bottom: 16px;
+border-bottom: 3px solid #1a1a1a;
+}
+.header-meta {
+display: flex;
+gap: 16px;
+flex-wrap: wrap;
+margin-top: 8px;
+}
+.header-item {
+display: flex;
+align-items: center;
+gap: 4px;
+}
+.header-label {
+font-weight: 600;
+color: #6c757d;
+}
+.status-badge {
+display: inline-block;
+padding: 2px 8px;
+border-radius: 4px;
+font-size: 12px;
+font-weight: 600;
+text-transform: uppercase;
+}
+.status-active {
+background: #d4edda;
+color: #155724;
+}
+.status-dissolved {
+background: #f8d7da;
+color: #721c24;
+}
+.status-other {
+background: #fff3cd;
+color: #856404;
+}
+.flags-section {
+background: #f8f9fa;
+border-radius: 8px;
+padding: 16px;
+margin-bottom: 24px;
+}
+.flags-section h2 {
+margin-top: 0;
+border-bottom: none;
+padding-bottom: 0;
+}
+.flag-item {
+display: flex;
+align-items: flex-start;
+gap: 12px;
+padding: 12px 0;
+border-bottom: 1px solid #dee2e6;
+}
+.flag-item:last-child {
+border-bottom: none;
+padding-bottom: 0;
+}
+.flag-badge {
+display: inline-block;
+padding: 2px 8px;
+border-radius: 4px;
+font-size: 11px;
+font-weight: 700;
+text-transform: uppercase;
+color: #fff;
+white-space: nowrap;
+}
+.severity-high { background: #dc3545; }
+.severity-medium { background: #fd7e14; }
+.severity-low { background: #ffc107; color: #212529; }
+.severity-info { background: #17a2b8; }
+.flag-content {
+flex: 1;
+}
+.flag-title {
+font-weight: 600;
+margin-bottom: 4px;
+}
+.flag-explanation {
+color: #6c757d;
+font-size: 13px;
+}
+.flag-link {
+margin-top: 4px;
+}
+.no-flags {
+color: #28a745;
+font-weight: 500;
+}
+table {
+width: 100%;
+border-collapse: collapse;
+margin: 12px 0;
+}
+th, td {
+text-align: left;
+padding: 8px 12px;
+border: 1px solid #dee2e6;
+}
+th {
+background: #f8f9fa;
+font-weight: 600;
+font-size: 13px;
+color: #495057;
+}
+td {
+font-size: 13px;
+}
+tr:nth-child(even) {
+background: #f8f9fa;
+}
+.detail-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+gap: 12px;
+margin: 12px 0;
+}
+.detail-item {
+padding: 8px 12px;
+background: #f8f9fa;
+border-radius: 4px;
+}
+.detail-label {
+font-size: 12px;
+color: #6c757d;
+font-weight: 600;
+text-transform: uppercase;
+margin-bottom: 2px;
+}
+.detail-value {
+color: #212529;
+}
+.nature-list {
+margin: 0;
+padding: 0;
+list-style: none;
+}
+.nature-list li {
+font-size: 12px;
+padding: 2px 0;
+}
+.modern-slavery-found {
+padding: 12px 16px;
+background: #d4edda;
+border-radius: 8px;
+border-left: 4px solid #28a745;
+}
+.modern-slavery-missing {
+padding: 12px 16px;
+background: #fff3cd;
+border-radius: 8px;
+border-left: 4px solid #ffc107;
+}
+.evidence-section {
+margin-top: 32px;
+padding-top: 16px;
+border-top: 2px solid #e9ecef;
+}
+.evidence-item {
+padding: 8px 0;
+border-bottom: 1px solid #e9ecef;
+font-size: 13px;
+}
+.evidence-item:last-child {
+border-bottom: none;
+}
+.evidence-id {
+font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+background: #e9ecef;
+padding: 2px 6px;
+border-radius: 3px;
+font-size: 12px;
+}
+.evidence-meta {
+color: #6c757d;
+font-size: 12px;
+margin-top: 2px;
+}
+a {
+color: #0056b3;
+text-decoration: none;
+}
+a:hover {
+text-decoration: underline;
+}
+.footer {
+margin-top: 32px;
+padding-top: 16px;
+border-top: 1px solid #e9ecef;
+font-size: 12px;
+color: #6c757d;
+text-align: center;
+}
+.empty-state {
+color: #6c757d;
+font-style: italic;
+padding: 12px;
+}
+/* Print styles */
+@media print {
+body {
+padding: 0;
+font-size: 12px;
+}
+.container {
+max-width: none;
+}
+h2 {
+break-after: avoid;
+}
+table {
+break-inside: avoid;
+}
+.flag-item {
+break-inside: avoid;
+}
+a {
+color: #000;
+}
+a[href]::after {
+content: " (" attr(href) ")";
+font-size: 10px;
+color: #6c757d;
+}
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>DEFUNCT ENTERPRISES LTD</h1>
+<div class="header-meta">
+<div class="header-item">
+<span class="header-label">Company No:</span>
+<span>SC654321</span>
+</div>
+<div class="header-item">
+<span class="header-label">Status:</span>
+<span class="status-badge status-dissolved">dissolved</span>
+</div>
+<div class="header-item">
+<span class="header-label">Type:</span>
+<span>LTD</span>
+</div>
+<div class="header-item">
+<span class="header-label">Incorporated:</span>
+<span>20 Aug 2015</span>
+</div>
+</div>
+</div>
+<section class="flags-section">
+<h2>Risk Flags (2)</h2>
+<div class="flag-item">
+<span class="flag-badge severity-high">HIGH</span>
+<div class="flag-content">
+<div class="flag-title">F1: Company not active</div>
+<div class="flag-explanation">Company status is &quot;dissolved&quot;. The company is not currently active and may not be able to fulfil obligations.</div>
+<div class="flag-link"><a href="https://find-and-update.company-information.service.gov.uk/company/SC654321" target="_blank">View evidence</a></div>
+</div>
+</div>
+<div class="flag-item">
+<span class="flag-badge severity-high">HIGH</span>
+<div class="flag-content">
+<div class="flag-title">F5: PSC missing</div>
+<div class="flag-explanation">The company has no active Persons with Significant Control (PSCs) and no valid statement explaining why. This is a legal requirement.</div>
+<div class="flag-link"><a href="https://find-and-update.company-information.service.gov.uk/company/SC654321/persons-with-significant-control" target="_blank">View evidence</a></div>
+</div>
+</div>
+</section>
+<section>
+<h2>Company Details</h2>
+<div class="detail-grid">
+<div class="detail-item">
+<div class="detail-label">Registered Office</div>
+<div class="detail-value">100 George Street, Edinburgh, EH2 3ES, Scotland</div>
+</div>
+<div class="detail-item">
+<div class="detail-label">SIC Codes</div>
+<div class="detail-value">47110</div>
+</div>
+</div>
+</section>
+<section>
+<h2>Officers</h2>
+<p class="empty-state">No officers on record</p>
+</section>
+<section>
+<h2>Persons with Significant Control</h2>
+<p class="empty-state">No PSCs on record</p>
+</section>
+<section>
+<h2>Modern Slavery Statement</h2>
+<div class="modern-slavery-missing">
+No modern slavery statement found in the registry.
+</div>
+</section>
+<section class="evidence-section">
+<h2>Evidence Appendix</h2>
+<p>Data sources used to compile this dossier:</p>
+<div class="evidence-item">
+<span class="evidence-id">78ee0b6c0c17</span>
+<a href="https://find-and-update.company-information.service.gov.uk/company/SC654321/officers" target="_blank">https://find-and-update.company-information.service.gov.uk/company/SC654321/officers</a>
+<div class="evidence-meta">
+Fetched: 2024-01-15T11:00:01.000Z (Cached)
+</div>
+</div>
+<div class="evidence-item">
+<span class="evidence-id">b014c8b14ad6</span>
+<a href="https://find-and-update.company-information.service.gov.uk/company/SC654321/persons-with-significant-control" target="_blank">https://find-and-update.company-information.service.gov.uk/company/SC654321/persons-with-significant-control</a>
+<div class="evidence-meta">
+Fetched: 2024-01-15T11:00:02.000Z (Cached)
+</div>
+</div>
+<div class="evidence-item">
+<span class="evidence-id">f252ba49443f</span>
+<a href="https://find-and-update.company-information.service.gov.uk/company/SC654321" target="_blank">https://find-and-update.company-information.service.gov.uk/company/SC654321</a>
+<div class="evidence-meta">
+Fetched: 2024-01-15T11:00:00.000Z (Cached)
+</div>
+</div>
+</section>
+<footer class="footer">
+Generated: 2024-01-15T12:00:00.000Z
+</footer>
+</div>
+</body>
+</html>"
+`;

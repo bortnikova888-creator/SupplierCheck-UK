@@ -21,3 +21,6 @@ export * from './dossier';
 
 // Risk flags engine exports
 export * from './riskFlags';
+
+// Report rendering exports
+export * from './report';
