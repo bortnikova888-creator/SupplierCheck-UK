@@ -1,0 +1,9 @@
+Company Name,Company Number,Statement URL,Year,Date Signed
+"ACME Solutions Ltd",01234567,https://registry.example.com/statements/01234567/2023,2023,2023-06-15
+"Global Trading PLC",09876543,https://registry.example.com/statements/09876543/2023,2023,2023-05-20
+"Tech Innovations Limited",05555555,https://registry.example.com/statements/05555555/2023,2023,2023-07-01
+"British Manufacturing Co Ltd",00112233,https://registry.example.com/statements/00112233/2023,2023,2023-04-30
+"Northern Services LLP",OC445566,https://registry.example.com/statements/OC445566/2023,2023,2023-08-12
+"Scottish Enterprises Limited",SC123456,https://registry.example.com/statements/SC123456/2023,2023,2023-03-22
+"Smith & Jones Holdings",02468024,https://registry.example.com/statements/02468024/2023,2023,2023-09-05
+"Coastal Fisheries UK Ltd",07777777,https://registry.example.com/statements/07777777/2023,2023,2023-06-28
