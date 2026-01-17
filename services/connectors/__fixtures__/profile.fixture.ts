@@ -43,7 +43,8 @@ export const profileFixture: CompanyProfileResponse = {
     filing_history: '/company/12345678/filing-history',
     officers: '/company/12345678/officers',
     persons_with_significant_control: '/company/12345678/persons-with-significant-control',
-    persons_with_significant_control_statements: '/company/12345678/persons-with-significant-control-statements',
+    persons_with_significant_control_statements:
+      '/company/12345678/persons-with-significant-control-statements',
     self: '/company/12345678',
   },
   previous_company_names: [

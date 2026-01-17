@@ -33,15 +33,11 @@ export function addEvidenceId(evidence: Evidence): EvidenceWithId {
  * Create an evidence map keyed by stable ID.
  * Ensures deterministic ordering when iterating.
  */
-export function createEvidenceMap(
-  evidenceList: Evidence[]
-): Map<string, EvidenceWithId> {
+export function createEvidenceMap(evidenceList: Evidence[]): Map<string, EvidenceWithId> {
   const map = new Map<string, EvidenceWithId>();
 
   // Sort by apiUrl first for deterministic ordering
-  const sorted = [...evidenceList].sort((a, b) =>
-    a.apiUrl.localeCompare(b.apiUrl)
-  );
+  const sorted = [...evidenceList].sort((a, b) => a.apiUrl.localeCompare(b.apiUrl));
 
   for (const evidence of sorted) {
     const withId = addEvidenceId(evidence);

@@ -40,11 +40,7 @@ export type FetchFunction = (
 /**
  * Generates a deterministic cache key from request parameters.
  */
-export function generateCacheKey(params: {
-  source: string;
-  request: string;
-  url: string;
-}): string {
+export function generateCacheKey(params: { source: string; request: string; url: string }): string {
   const data = `${params.source}:${params.request}:${params.url}`;
   return crypto.createHash('sha256').update(data).digest('hex');
 }
@@ -199,9 +195,6 @@ export class Cache {
 /**
  * Creates a new Cache instance with the given fetch function.
  */
-export function createCache(
-  fetchFn: FetchFunction,
-  db?: Database.Database
-): Cache {
+export function createCache(fetchFn: FetchFunction, db?: Database.Database): Cache {
   return new Cache(fetchFn, db);
 }

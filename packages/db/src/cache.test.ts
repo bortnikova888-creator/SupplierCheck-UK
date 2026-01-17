@@ -7,11 +7,7 @@ describe('Cache', () => {
   let cache: Cache;
   let fetchCallCount: number;
 
-  const createFakeFetch = (response: {
-    status: number;
-    body: Buffer;
-    contentType: string;
-  }) => {
+  const createFakeFetch = (response: { status: number; body: Buffer; contentType: string }) => {
     return async () => {
       fetchCallCount++;
       return response;
@@ -307,10 +303,7 @@ describe('Cache', () => {
         headers,
       });
 
-      expect(fakeFetch).toHaveBeenCalledWith(
-        'https://api.example.com/data',
-        headers
-      );
+      expect(fakeFetch).toHaveBeenCalledWith('https://api.example.com/data', headers);
     });
   });
 });

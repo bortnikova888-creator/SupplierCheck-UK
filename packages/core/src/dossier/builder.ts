@@ -37,10 +37,7 @@ export interface DossierResult {
  * @param generatedAt - Optional fixed timestamp (for testing)
  * @returns DossierResult with normalized dossier and evidence
  */
-export function buildDossier(
-  input: DossierInput,
-  generatedAt?: string
-): DossierResult {
+export function buildDossier(input: DossierInput, generatedAt?: string): DossierResult {
   // Normalize company data
   const company = normalizeCompany(input.profile);
 

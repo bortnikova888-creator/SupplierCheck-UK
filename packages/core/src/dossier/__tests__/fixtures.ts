@@ -116,13 +116,16 @@ export const activeCompanyEvidence: DossierInput['evidence'] = {
   },
   officers: {
     apiUrl: 'https://api.company-information.service.gov.uk/company/12345678/officers',
-    publicUrl: 'https://find-and-update.company-information.service.gov.uk/company/12345678/officers',
+    publicUrl:
+      'https://find-and-update.company-information.service.gov.uk/company/12345678/officers',
     fetchedAt: '2024-01-15T10:00:01.000Z',
     fromCache: false,
   },
   pscs: {
-    apiUrl: 'https://api.company-information.service.gov.uk/company/12345678/persons-with-significant-control',
-    publicUrl: 'https://find-and-update.company-information.service.gov.uk/company/12345678/persons-with-significant-control',
+    apiUrl:
+      'https://api.company-information.service.gov.uk/company/12345678/persons-with-significant-control',
+    publicUrl:
+      'https://find-and-update.company-information.service.gov.uk/company/12345678/persons-with-significant-control',
     fetchedAt: '2024-01-15T10:00:02.000Z',
     fromCache: false,
   },
@@ -187,13 +190,16 @@ export const dissolvedCompanyEvidence: DossierInput['evidence'] = {
   },
   officers: {
     apiUrl: 'https://api.company-information.service.gov.uk/company/SC654321/officers',
-    publicUrl: 'https://find-and-update.company-information.service.gov.uk/company/SC654321/officers',
+    publicUrl:
+      'https://find-and-update.company-information.service.gov.uk/company/SC654321/officers',
     fetchedAt: '2024-01-15T11:00:01.000Z',
     fromCache: true,
   },
   pscs: {
-    apiUrl: 'https://api.company-information.service.gov.uk/company/SC654321/persons-with-significant-control',
-    publicUrl: 'https://find-and-update.company-information.service.gov.uk/company/SC654321/persons-with-significant-control',
+    apiUrl:
+      'https://api.company-information.service.gov.uk/company/SC654321/persons-with-significant-control',
+    publicUrl:
+      'https://find-and-update.company-information.service.gov.uk/company/SC654321/persons-with-significant-control',
     fetchedAt: '2024-01-15T11:00:02.000Z',
     fromCache: true,
   },
@@ -273,7 +279,8 @@ export const corporatePSC: PSCsResponse = {
 export const modernSlaveryFound: ModernSlaveryRegistryResult = {
   found: true,
   latestYear: 2024,
-  statementSummaryUrl: 'https://modern-slavery-statement-registry.service.gov.uk/statement-summary/12345',
+  statementSummaryUrl:
+    'https://modern-slavery-statement-registry.service.gov.uk/statement-summary/12345',
   evidence: [
     {
       csvUrl: 'https://modern-slavery-statement-registry.service.gov.uk/download/2024.csv',
@@ -293,13 +300,16 @@ export const largeCompanyEvidence: DossierInput['evidence'] = {
   },
   officers: {
     apiUrl: 'https://api.company-information.service.gov.uk/company/00123456/officers',
-    publicUrl: 'https://find-and-update.company-information.service.gov.uk/company/00123456/officers',
+    publicUrl:
+      'https://find-and-update.company-information.service.gov.uk/company/00123456/officers',
     fetchedAt: '2024-01-15T12:00:01.000Z',
     fromCache: false,
   },
   pscs: {
-    apiUrl: 'https://api.company-information.service.gov.uk/company/00123456/persons-with-significant-control',
-    publicUrl: 'https://find-and-update.company-information.service.gov.uk/company/00123456/persons-with-significant-control',
+    apiUrl:
+      'https://api.company-information.service.gov.uk/company/00123456/persons-with-significant-control',
+    publicUrl:
+      'https://find-and-update.company-information.service.gov.uk/company/00123456/persons-with-significant-control',
     fetchedAt: '2024-01-15T12:00:02.000Z',
     fromCache: false,
   },

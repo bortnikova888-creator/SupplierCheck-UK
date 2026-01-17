@@ -27,9 +27,7 @@
         "pnpm --filter @app/web dev runs client",
         "Client can call /api/healthz in dev (proxy configured)."
       ],
-      "tests": [
-        "One Vitest smoke test for GET /api/healthz (supertest)."
-      ]
+      "tests": ["One Vitest smoke test for GET /api/healthz (supertest)."]
     },
     {
       "id": 2,
@@ -44,9 +42,7 @@
         ".env.example updated.",
         "No API key referenced in apps/web."
       ],
-      "tests": [
-        "Unit test: env parsing rejects missing key."
-      ]
+      "tests": ["Unit test: env parsing rejects missing key."]
     },
     {
       "id": 3,
@@ -57,14 +53,8 @@
         "cache_entries table.",
         "getOrFetchRaw implementation with TTL logic."
       ],
-      "acceptance": [
-        "Cache hit returns identical bytes.",
-        "Cache stored on disk path from env."
-      ],
-      "tests": [
-        "Unit test with fake fetch: first call miss, second call hit.",
-        "TTL expiry test."
-      ]
+      "acceptance": ["Cache hit returns identical bytes.", "Cache stored on disk path from env."],
+      "tests": ["Unit test with fake fetch: first call miss, second call hit.", "TTL expiry test."]
     },
     {
       "id": 4,
@@ -115,9 +105,7 @@
         "Same inputs produce byte-identical dossier JSON.",
         "No timestamps inside dossier unless from upstream."
       ],
-      "tests": [
-        "Golden fixture tests (3 scenarios) snapshot dossier JSON."
-      ]
+      "tests": ["Golden fixture tests (3 scenarios) snapshot dossier JSON."]
     },
     {
       "id": 7,
@@ -127,14 +115,8 @@
         "Rules: F1 Status, F2/F3 Overdue, F4 Insolvency, F5 PSC missing, F6 Officer changes, F7 Modern Slavery missing.",
         "Flags include rule string, explanation, and evidenceIds."
       ],
-      "acceptance": [
-        "Flags stable ordering (by flagId).",
-        "No scores, only flags."
-      ],
-      "tests": [
-        "Unit tests for each flag rule.",
-        "Golden snapshots for the 3 fixture dossiers."
-      ]
+      "acceptance": ["Flags stable ordering (by flagId).", "No scores, only flags."],
+      "tests": ["Unit tests for each flag rule.", "Golden snapshots for the 3 fixture dossiers."]
     },
     {
       "id": 8,
@@ -149,9 +131,7 @@
         "HTML renders without external assets.",
         "Deterministic output (normalized whitespace)."
       ],
-      "tests": [
-        "Snapshot normalized HTML for fixture dossiers."
-      ]
+      "tests": ["Snapshot normalized HTML for fixture dossiers."]
     },
     {
       "id": 9,
@@ -166,9 +146,7 @@
         "HTML and PDF routes utilize the same source.",
         "Structured error responses."
       ],
-      "tests": [
-        "Supertest smoke tests for all routes (mock upstream via Nock)."
-      ]
+      "tests": ["Supertest smoke tests for all routes (mock upstream via Nock)."]
     },
     {
       "id": 10,
@@ -185,10 +163,7 @@
         "Monolith build serves both UI and API.",
         "Docker build succeeds."
       ],
-      "tests": [
-        "PDF smoke test (header + size).",
-        "Build pipeline in CI."
-      ]
+      "tests": ["PDF smoke test (header + size).", "Build pipeline in CI."]
     }
   ]
 }

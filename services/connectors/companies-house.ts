@@ -77,11 +77,7 @@ export class CompaniesHouseConnector {
     const apiUrl = this.buildApiUrl('/search/companies', { q: query.trim() });
     const cacheKey = `search:${query.trim().toLowerCase()}`;
 
-    return this.fetchWithCache<CompanySearchResponse>(
-      apiUrl,
-      cacheKey,
-      COMPANIES_HOUSE_TTL.SEARCH
-    );
+    return this.fetchWithCache<CompanySearchResponse>(apiUrl, cacheKey, COMPANIES_HOUSE_TTL.SEARCH);
   }
 
   /**
@@ -89,7 +85,9 @@ export class CompaniesHouseConnector {
    * @param companyNumber Company registration number
    * @returns Company profile with evidence
    */
-  async getCompanyProfile(companyNumber: string): Promise<ConnectorResponse<CompanyProfileResponse>> {
+  async getCompanyProfile(
+    companyNumber: string
+  ): Promise<ConnectorResponse<CompanyProfileResponse>> {
     const normalizedNumber = this.normalizeCompanyNumber(companyNumber);
 
     if (!normalizedNumber) {
@@ -159,16 +157,13 @@ export class CompaniesHouseConnector {
       );
     }
 
-    const apiUrl = this.buildApiUrl(`/company/${normalizedNumber}/persons-with-significant-control`);
+    const apiUrl = this.buildApiUrl(
+      `/company/${normalizedNumber}/persons-with-significant-control`
+    );
     const cacheKey = `pscs:${normalizedNumber}`;
     const publicUrl = `${COMPANIES_HOUSE_WEB_BASE}/company/${normalizedNumber}/persons-with-significant-control`;
 
-    return this.fetchWithCache<PSCsResponse>(
-      apiUrl,
-      cacheKey,
-      COMPANIES_HOUSE_TTL.PSCS,
-      publicUrl
-    );
+    return this.fetchWithCache<PSCsResponse>(apiUrl, cacheKey, COMPANIES_HOUSE_TTL.PSCS, publicUrl);
   }
 
   /**
@@ -188,7 +183,9 @@ export class CompaniesHouseConnector {
       );
     }
 
-    const apiUrl = this.buildApiUrl(`/company/${normalizedNumber}/persons-with-significant-control-statements`);
+    const apiUrl = this.buildApiUrl(
+      `/company/${normalizedNumber}/persons-with-significant-control-statements`
+    );
     const cacheKey = `psc-statements:${normalizedNumber}`;
     const publicUrl = `${COMPANIES_HOUSE_WEB_BASE}/company/${normalizedNumber}/persons-with-significant-control`;
 
@@ -382,8 +379,7 @@ export class CompaniesHouseConnector {
       return this.createSuccess(data, apiUrl, false, publicUrl);
     } catch (error) {
       // Handle network errors
-      const errorMessage =
-        error instanceof Error ? error.message : 'Network error occurred';
+      const errorMessage = error instanceof Error ? error.message : 'Network error occurred';
 
       return this.createError(
         ConnectorErrorCode.NETWORK_ERROR,

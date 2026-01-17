@@ -39,10 +39,7 @@ describe('Companies House Connector Snapshots', () => {
 
   describe('searchCompanies snapshots', () => {
     it('should match search results snapshot', async () => {
-      nock(API_BASE)
-        .get('/search/companies')
-        .query({ q: 'marine' })
-        .reply(200, searchFixture);
+      nock(API_BASE).get('/search/companies').query({ q: 'marine' }).reply(200, searchFixture);
 
       const result = await connector.searchCompanies('marine');
 
@@ -60,9 +57,7 @@ describe('Companies House Connector Snapshots', () => {
 
   describe('getCompanyProfile snapshots', () => {
     it('should match active company profile snapshot', async () => {
-      nock(API_BASE)
-        .get('/company/12345678')
-        .reply(200, profileFixture);
+      nock(API_BASE).get('/company/12345678').reply(200, profileFixture);
 
       const result = await connector.getCompanyProfile('12345678');
 
@@ -77,9 +72,7 @@ describe('Companies House Connector Snapshots', () => {
     });
 
     it('should match dissolved company profile snapshot', async () => {
-      nock(API_BASE)
-        .get('/company/SC654321')
-        .reply(200, dissolvedProfileFixture);
+      nock(API_BASE).get('/company/SC654321').reply(200, dissolvedProfileFixture);
 
       const result = await connector.getCompanyProfile('SC654321');
 
@@ -96,9 +89,7 @@ describe('Companies House Connector Snapshots', () => {
 
   describe('getOfficers snapshots', () => {
     it('should match officers list snapshot', async () => {
-      nock(API_BASE)
-        .get('/company/12345678/officers')
-        .reply(200, officersFixture);
+      nock(API_BASE).get('/company/12345678/officers').reply(200, officersFixture);
 
       const result = await connector.getOfficers('12345678');
 
@@ -113,9 +104,7 @@ describe('Companies House Connector Snapshots', () => {
     });
 
     it('should match corporate officer snapshot', async () => {
-      nock(API_BASE)
-        .get('/company/12345678/officers')
-        .reply(200, corporateOfficerFixture);
+      nock(API_BASE).get('/company/12345678/officers').reply(200, corporateOfficerFixture);
 
       const result = await connector.getOfficers('12345678');
 

@@ -113,11 +113,7 @@ export class Cache {
    * If the key exists and is not expired, returns the cached value.
    * Otherwise, calls the factory function, caches the result, and returns it.
    */
-  async getOrSet<T>(
-    key: string,
-    factory: () => Promise<T>,
-    ttl?: number
-  ): Promise<T> {
+  async getOrSet<T>(key: string, factory: () => Promise<T>, ttl?: number): Promise<T> {
     const cached = this.get<T>(key);
 
     if (cached !== undefined) {

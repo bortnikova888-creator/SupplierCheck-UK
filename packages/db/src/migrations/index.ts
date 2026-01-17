@@ -46,9 +46,7 @@ export function runMigrations(db: Database.Database): void {
   `);
 
   const getApplied = db.prepare('SELECT id FROM _migrations WHERE id = ?');
-  const recordMigration = db.prepare(
-    'INSERT INTO _migrations (id, applied_at) VALUES (?, ?)'
-  );
+  const recordMigration = db.prepare('INSERT INTO _migrations (id, applied_at) VALUES (?, ?)');
 
   for (const migration of migrations) {
     const existing = getApplied.get(migration.id);
