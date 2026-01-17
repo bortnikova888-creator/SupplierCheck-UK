@@ -15,3 +15,6 @@ export function createHealthResponse(service: string): HealthResponse {
     service,
   };
 }
+
+// Dossier builder exports
+export * from './dossier';
