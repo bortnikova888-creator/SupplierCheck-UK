@@ -18,6 +18,6 @@ jobs:
           node-version: 20
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm --filter @app/api exec playwright install --with-deps chromium
+      - run: pnpm --filter @app/api exec -- node ./node_modules/playwright/cli.js install --with-deps chromium
       - run: pnpm -r build
       - run: pnpm test
