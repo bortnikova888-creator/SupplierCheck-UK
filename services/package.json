@@ -1,0 +1,13 @@
+{
+  "name": "@pkg/services",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "find . -name \"*.js\" -o -name \"*.js.map\" -exec rm -f {} +"
+  },
+  "devDependencies": {
+    "typescript": "~5.8.2"
+  }
+}

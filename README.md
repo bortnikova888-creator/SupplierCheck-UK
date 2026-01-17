@@ -56,3 +56,23 @@ pnpm test:watch
 ## Environment Variables
 
 Copy `.env.example` to `.env` and configure as needed.
+
+## Deployment (Docker + Fly.io)
+
+Build and run the container locally:
+
+```bash
+docker build -t suppliercheck-uk .
+docker run --rm -p 3001:3001 \
+  -e COMPANIES_HOUSE_API_KEY=your_key \
+  -e CACHE_DB_PATH=/data/cache.db \
+  -v suppliercheck_data:/data \
+  suppliercheck-uk
+```
+
+Fly.io setup uses `fly.toml` with a persistent volume for cached data:
+
+```bash
+fly volumes create suppliercheck_data --size 1
+fly deploy
+```
