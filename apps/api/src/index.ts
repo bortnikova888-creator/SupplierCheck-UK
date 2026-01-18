@@ -1,4 +1,4 @@
-import { parseServerEnv } from '@pkg/config';
+import { parseServerEnv } from '@pkg/config/server';
 import { buildApiApp } from './app';
 
 const env = parseServerEnv();

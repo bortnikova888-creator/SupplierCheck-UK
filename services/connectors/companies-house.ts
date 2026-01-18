@@ -8,7 +8,7 @@
  */
 
 import { Cache, COMPANIES_HOUSE_TTL } from './cache';
-import {
+import type {
   CompanySearchResponse,
   CompanyProfileResponse,
   OfficersResponse,
@@ -16,9 +16,8 @@ import {
   PSCStatementsResponse,
   ConnectorResponse,
   ConnectorError,
-  ConnectorErrorCode,
-  Evidence,
 } from './companies-house.types';
+import { ConnectorErrorCode } from './companies-house.types';
 
 // ============================================================================
 // Configuration
@@ -359,9 +358,11 @@ export class CompaniesHouseConnector {
 
         // Try to get error details from response
         try {
-          const errorBody = await response.json();
+          const errorBody = (await response.json()) as {
+            errors?: Array<{ error?: string }>;
+          };
           if (errorBody.errors && Array.isArray(errorBody.errors)) {
-            errorMessage = errorBody.errors.map((e: { error?: string }) => e.error).join('; ');
+            errorMessage = errorBody.errors.map((e) => e.error).join('; ');
           }
           details = errorBody;
         } catch {

@@ -6,6 +6,16 @@ dist
 build
 *.local
 
+# Generated files in services/lib
+services/**/*.js
+services/**/*.js.map
+services/**/*.d.ts
+services/**/*.d.ts.map
+lib/**/*.js
+lib/**/*.js.map
+lib/**/*.d.ts
+lib/**/*.d.ts.map
+
 # Logs
 logs
 *.log
