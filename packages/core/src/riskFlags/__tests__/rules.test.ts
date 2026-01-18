@@ -72,7 +72,7 @@ function createTestInput(
         resignedOn: o.resignedOn,
         nationality: 'British',
       })),
-      pscs: pscs.map((p, i) => ({
+      pscs: pscs.map((p, _i) => ({
         name: p.name,
         natureOfControl: ['ownership-of-shares-25-to-50-percent'],
         notifiedOn: '2020-01-01',

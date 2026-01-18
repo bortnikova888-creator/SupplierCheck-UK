@@ -3,15 +3,7 @@
  * Implements PRD 7 - explicit risk flag rules F1-F7.
  */
 
-import type {
-  Dossier,
-  RiskFlag,
-  FlagSeverity,
-  CompanyProfileResponse,
-  OfficersResponse,
-  PSCsResponse,
-  ModernSlaveryRegistryResult,
-} from '../dossier/connector-types';
+import type { Dossier, RiskFlag, FlagSeverity } from '../dossier/connector-types';
 import type { DossierInput } from '../dossier/types';
 
 /**

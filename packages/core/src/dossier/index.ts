@@ -36,7 +36,6 @@ export type {
   PSC,
   Address,
   RiskFlag,
-  FlagSeverity,
   ModernSlaveryStatement,
   ModernSlaveryRegistryResult,
 } from './connector-types';

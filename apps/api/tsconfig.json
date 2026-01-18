@@ -2,7 +2,16 @@
   "extends": "../../packages/config/tsconfig/node.json",
   "compilerOptions": {
     "outDir": "dist",
-    "rootDir": "src"
+    "rootDir": "../.."
   },
-  "include": ["src"]
+  "include": ["src", "../../services", "../../lib"],
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "**/__tests__/**",
+    "../../services/**/*.test.ts",
+    "../../services/**/*.spec.ts",
+    "../../lib/**/*.test.ts",
+    "../../lib/**/*.spec.ts"
+  ]
 }
