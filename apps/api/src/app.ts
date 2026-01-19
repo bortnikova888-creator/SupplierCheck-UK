@@ -1,6 +1,9 @@
 import Fastify, { type FastifyInstance, type FastifyReply } from 'fastify';
 import cors from '@fastify/cors';
 import rateLimit from '@fastify/rate-limit';
+import fastifyStatic from '@fastify/static';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import {
   buildDossier,
   buildDossierWithRiskFlags,
@@ -170,6 +173,8 @@ export async function buildApiApp(options: ApiAppOptions): Promise<FastifyInstan
   const env = options.env;
   const connector = options.connector ?? createCompaniesHouseConnector(env.COMPANIES_HOUSE_API_KEY);
   const registryConfig = options.registryConfig ?? DEFAULT_REGISTRY_CONFIG;
+  const currentDir = path.dirname(fileURLToPath(import.meta.url));
+  const webDistPath = path.join(currentDir, '../../web/dist');
 
   const app = Fastify({
     logger: true,
@@ -179,6 +184,16 @@ export async function buildApiApp(options: ApiAppOptions): Promise<FastifyInstan
   await app.register(rateLimit, {
     max: env.RATE_LIMIT_MAX,
     timeWindow: env.RATE_LIMIT_WINDOW_MS,
+  });
+
+  await app.register(fastifyStatic, {
+    root: webDistPath,
+    prefix: '/',
+    index: false,
+  });
+
+  app.get('/', async (_request, reply) => {
+    return reply.sendFile('index.html');
   });
 
   app.get('/api/healthz', async () => {
@@ -284,6 +299,15 @@ export async function buildApiApp(options: ApiAppOptions): Promise<FastifyInstan
 
     reply.type('application/pdf');
     return pdfBuffer;
+  });
+
+  app.get('/*', async (request, reply) => {
+    const url = request.raw.url ?? '';
+    if (url.startsWith('/api/')) {
+      return reply.callNotFound();
+    }
+
+    return reply.sendFile('index.html');
   });
 
   app.setErrorHandler((error, _request, reply) => {

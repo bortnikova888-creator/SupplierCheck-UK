@@ -12,6 +12,7 @@
   "dependencies": {
     "@fastify/cors": "^10.0.2",
     "@fastify/rate-limit": "^10.0.1",
+    "@fastify/static": "^7.0.4",
     "@pkg/core": "workspace:*",
     "@pkg/config": "workspace:*",
     "fastify": "^5.2.1",
