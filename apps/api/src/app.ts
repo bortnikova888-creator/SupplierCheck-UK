@@ -21,6 +21,10 @@ import {
   type RegistryConfig,
 } from '../../../services/modernSlaveryRegistry';
 
+const COMPANIES_HOUSE_API_KEY_PENDING_VALUE = '__PENDING__';
+const COMPANIES_HOUSE_API_KEY_PENDING_CODE = 'COMPANIES_HOUSE_API_KEY_PENDING';
+const COMPANIES_HOUSE_API_KEY_PENDING_MESSAGE = 'Companies House API key pending';
+
 export interface ServerEnv {
   COMPANIES_HOUSE_API_KEY: string;
   PORT: number;
@@ -46,6 +50,11 @@ interface ApiErrorPayload {
   };
 }
 
+function isCompaniesHouseApiKeyPending(apiKey: string | undefined): boolean {
+  const trimmed = (apiKey ?? '').trim();
+  return trimmed.length === 0 || trimmed === COMPANIES_HOUSE_API_KEY_PENDING_VALUE;
+}
+
 function sendError(
   reply: FastifyReply,
   statusCode: number,
@@ -63,6 +72,15 @@ function sendError(
   };
   reply.status(statusCode);
   return payload;
+}
+
+function sendCompaniesHouseKeyPending(reply: FastifyReply): ApiErrorPayload {
+  return sendError(
+    reply,
+    503,
+    COMPANIES_HOUSE_API_KEY_PENDING_CODE,
+    COMPANIES_HOUSE_API_KEY_PENDING_MESSAGE
+  );
 }
 
 function mapConnectorError(error: ConnectorError['error']): {
@@ -168,7 +186,10 @@ async function buildDossierInput(
 
 export async function buildApiApp(options: ApiAppOptions): Promise<FastifyInstance> {
   const env = options.env;
-  const connector = options.connector ?? createCompaniesHouseConnector(env.COMPANIES_HOUSE_API_KEY);
+  const apiKeyPending =
+    !options.connector && isCompaniesHouseApiKeyPending(env.COMPANIES_HOUSE_API_KEY);
+  const connector =
+    options.connector ?? (apiKeyPending ? undefined : createCompaniesHouseConnector(env.COMPANIES_HOUSE_API_KEY));
   const registryConfig = options.registryConfig ?? DEFAULT_REGISTRY_CONFIG;
 
   const app = Fastify({
@@ -181,11 +202,19 @@ export async function buildApiApp(options: ApiAppOptions): Promise<FastifyInstan
     timeWindow: env.RATE_LIMIT_WINDOW_MS,
   });
 
+  app.get('/health', async () => {
+    return { status: 'ok', timestamp: new Date().toISOString(), service: 'api' };
+  });
+
   app.get('/api/healthz', async () => {
     return { status: 'ok', timestamp: new Date().toISOString(), service: 'api' };
   });
 
   app.get('/api/search', async (request, reply) => {
+    if (apiKeyPending || !connector) {
+      return sendCompaniesHouseKeyPending(reply);
+    }
+
     const query = String((request.query as { q?: string }).q ?? '').trim();
     if (!query) {
       return sendError(reply, 400, 'VALIDATION_ERROR', 'Query parameter "q" is required.');
@@ -204,6 +233,10 @@ export async function buildApiApp(options: ApiAppOptions): Promise<FastifyInstan
   });
 
   app.get('/api/company/:companyNumber', async (request, reply) => {
+    if (apiKeyPending || !connector) {
+      return sendCompaniesHouseKeyPending(reply);
+    }
+
     const companyNumber = String((request.params as { companyNumber?: string }).companyNumber ?? '')
       .trim()
       .toUpperCase();
@@ -236,6 +269,10 @@ export async function buildApiApp(options: ApiAppOptions): Promise<FastifyInstan
   });
 
   app.get('/api/company/:companyNumber/report.html', async (request, reply) => {
+    if (apiKeyPending || !connector) {
+      return sendCompaniesHouseKeyPending(reply);
+    }
+
     const companyNumber = String((request.params as { companyNumber?: string }).companyNumber ?? '')
       .trim()
       .toUpperCase();
@@ -261,6 +298,10 @@ export async function buildApiApp(options: ApiAppOptions): Promise<FastifyInstan
   });
 
   app.get('/api/company/:companyNumber/report.pdf', async (request, reply) => {
+    if (apiKeyPending || !connector) {
+      return sendCompaniesHouseKeyPending(reply);
+    }
+
     const companyNumber = String((request.params as { companyNumber?: string }).companyNumber ?? '')
       .trim()
       .toUpperCase();

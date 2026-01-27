@@ -8,18 +8,24 @@ const baseEnvSchema = z.object({
   LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error']).default('info'),
 });
 
+const PENDING_COMPANIES_HOUSE_API_KEY = '__PENDING__';
+
 /**
  * Server-only environment schema
  * Contains sensitive credentials that must never be exposed to the client
  */
 const serverEnvSchema = baseEnvSchema.extend({
-  // Companies House API key - REQUIRED, server-only
-  COMPANIES_HOUSE_API_KEY: z
-    .string({
-      required_error:
-        'COMPANIES_HOUSE_API_KEY is required. Get one at https://developer.company-information.service.gov.uk/',
-    })
-    .min(1, 'COMPANIES_HOUSE_API_KEY cannot be empty'),
+  // Companies House API key - optional for local dev, server-only
+  COMPANIES_HOUSE_API_KEY: z.preprocess(
+    (value) => {
+      if (typeof value !== 'string') {
+        return PENDING_COMPANIES_HOUSE_API_KEY;
+      }
+      const trimmed = value.trim();
+      return trimmed.length === 0 ? PENDING_COMPANIES_HOUSE_API_KEY : trimmed;
+    },
+    z.string()
+  ),
 
   // Server configuration
   PORT: z.coerce.number().default(3001),

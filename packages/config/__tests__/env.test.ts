@@ -3,34 +3,26 @@ import { serverEnvSchema, webEnvSchema, parseWebEnv } from '../src/env';
 
 describe('env parsing', () => {
   describe('serverEnvSchema', () => {
-    it('should reject missing COMPANIES_HOUSE_API_KEY', () => {
+    it('should allow missing COMPANIES_HOUSE_API_KEY and mark it pending', () => {
       const result = serverEnvSchema.safeParse({
         NODE_ENV: 'development',
       });
 
-      expect(result.success).toBe(false);
-      if (!result.success) {
-        const apiKeyError = result.error.issues.find(
-          (issue) => issue.path[0] === 'COMPANIES_HOUSE_API_KEY'
-        );
-        expect(apiKeyError).toBeDefined();
-        expect(apiKeyError?.message).toContain('COMPANIES_HOUSE_API_KEY');
+      expect(result.success).toBe(true);
+      if (result.success) {
+        expect(result.data.COMPANIES_HOUSE_API_KEY).toBe('__PENDING__');
       }
     });
 
-    it('should reject empty COMPANIES_HOUSE_API_KEY', () => {
+    it('should treat empty COMPANIES_HOUSE_API_KEY as pending', () => {
       const result = serverEnvSchema.safeParse({
         COMPANIES_HOUSE_API_KEY: '',
         NODE_ENV: 'development',
       });
 
-      expect(result.success).toBe(false);
-      if (!result.success) {
-        const apiKeyError = result.error.issues.find(
-          (issue) => issue.path[0] === 'COMPANIES_HOUSE_API_KEY'
-        );
-        expect(apiKeyError).toBeDefined();
-        expect(apiKeyError?.message).toContain('cannot be empty');
+      expect(result.success).toBe(true);
+      if (result.success) {
+        expect(result.data.COMPANIES_HOUSE_API_KEY).toBe('__PENDING__');
       }
     });
 

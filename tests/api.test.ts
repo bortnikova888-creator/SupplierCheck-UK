@@ -1,6 +1,5 @@
-import { describe, it, expect, beforeAll, afterAll, afterEach } from 'vitest';
+import { describe, it, expect, beforeAll, afterAll, afterEach, vi } from 'vitest';
 import nock from 'nock';
-import supertest from 'supertest';
 import fetch from 'node-fetch';
 import type { FastifyInstance } from 'fastify';
 import { buildApiApp } from '../apps/api/src/app';
@@ -11,6 +10,10 @@ import {
   searchFixture,
 } from '../services/connectors/__fixtures__';
 import { CompaniesHouseConnector } from '../services/connectors';
+
+vi.mock('../apps/api/src/report/renderPdf', () => ({
+  renderReportPdf: async () => Buffer.from('%PDF' + 'x'.repeat(2000), 'utf8'),
+}));
 
 describe('API Health Check', () => {
   let app: FastifyInstance;
@@ -53,10 +56,20 @@ describe('API Health Check', () => {
   });
 
   it('GET /api/healthz returns ok status', async () => {
-    const response = await supertest(app.server).get('/api/healthz');
+    const response = await app.inject({ method: 'GET', url: '/api/healthz' });
 
     expect(response.statusCode).toBe(200);
-    const body = response.body;
+    const body = response.json();
+    expect(body.status).toBe('ok');
+    expect(body.service).toBe('api');
+    expect(body.timestamp).toBeDefined();
+  });
+
+  it('GET /health returns ok status', async () => {
+    const response = await app.inject({ method: 'GET', url: '/health' });
+
+    expect(response.statusCode).toBe(200);
+    const body = response.json();
     expect(body.status).toBe('ok');
     expect(body.service).toBe('api');
     expect(body.timestamp).toBeDefined();
@@ -68,11 +81,12 @@ describe('API Health Check', () => {
       .query({ q: 'Marine' })
       .reply(200, searchFixture);
 
-    const response = await supertest(app.server).get('/api/search').query({ q: 'Marine' });
+    const response = await app.inject({ method: 'GET', url: '/api/search?q=Marine' });
 
     expect(response.statusCode).toBe(200);
-    expect(response.body.query).toBe('Marine');
-    expect(response.body.results.length).toBeGreaterThan(0);
+    const body = response.json();
+    expect(body.query).toBe('Marine');
+    expect(body.results.length).toBeGreaterThan(0);
   });
 
   it('GET /api/company/:companyNumber returns dossier and report URLs', async () => {
@@ -91,12 +105,13 @@ describe('API Health Check', () => {
         'Company Number,Company Name,Statement URL,Date Signed\n12345678,ACME LTD,https://example.com,2024-01-01'
       );
 
-    const response = await supertest(app.server).get('/api/company/12345678');
+    const response = await app.inject({ method: 'GET', url: '/api/company/12345678' });
 
     expect(response.statusCode).toBe(200);
-    expect(response.body.dossier.company.companyNumber).toBe('12345678');
-    expect(response.body.report.htmlUrl).toContain('/api/company/12345678/report.html');
-    expect(response.body.report.pdfUrl).toContain('/api/company/12345678/report.pdf');
+    const body = response.json();
+    expect(body.dossier.company.companyNumber).toBe('12345678');
+    expect(body.report.htmlUrl).toContain('/api/company/12345678/report.html');
+    expect(body.report.pdfUrl).toContain('/api/company/12345678/report.pdf');
   });
 
   it('GET /api/company/:companyNumber/report.html returns HTML', async () => {
@@ -115,11 +130,11 @@ describe('API Health Check', () => {
         'Company Number,Company Name,Statement URL,Date Signed\n12345678,ACME LTD,https://example.com,2024-01-01'
       );
 
-    const response = await supertest(app.server).get('/api/company/12345678/report.html');
+    const response = await app.inject({ method: 'GET', url: '/api/company/12345678/report.html' });
 
     expect(response.statusCode).toBe(200);
     expect(response.headers['content-type']).toContain('text/html');
-    expect(response.text).toContain('<html');
+    expect(response.body).toContain('<html');
   });
 
   it('GET /api/company/:companyNumber/report.pdf returns PDF content', async () => {
@@ -138,23 +153,56 @@ describe('API Health Check', () => {
         'Company Number,Company Name,Statement URL,Date Signed\n12345678,ACME LTD,https://example.com,2024-01-01'
       );
 
-    const response = await supertest(app.server)
-      .get('/api/company/12345678/report.pdf')
-      .buffer(true);
+    const response = await app.inject({ method: 'GET', url: '/api/company/12345678/report.pdf' });
 
     expect(response.statusCode).toBe(200);
     expect(response.headers['content-type']).toContain('application/pdf');
-    const pdfBody = Buffer.isBuffer(response.body)
-      ? response.body
-      : Buffer.from(response.text ?? '', 'utf8');
+    const rawPayload = (response as { rawPayload?: Buffer }).rawPayload;
+    const pdfBody = Buffer.isBuffer(rawPayload)
+      ? rawPayload
+      : Buffer.from(response.body ?? '', 'utf8');
     expect(pdfBody.subarray(0, 4).toString('utf8')).toBe('%PDF');
     expect(pdfBody.length).toBeGreaterThan(1_000);
   });
 
   it('GET /api/search without query returns structured error', async () => {
-    const response = await supertest(app.server).get('/api/search');
+    const response = await app.inject({ method: 'GET', url: '/api/search' });
 
     expect(response.statusCode).toBe(400);
-    expect(response.body.error.code).toBe('VALIDATION_ERROR');
+    const body = response.json();
+    expect(body.error.code).toBe('VALIDATION_ERROR');
+  });
+});
+
+describe('API key pending handling', () => {
+  let app: FastifyInstance;
+
+  beforeAll(async () => {
+    globalThis.fetch = fetch as unknown as typeof globalThis.fetch;
+    app = await buildApiApp({
+      env: {
+        COMPANIES_HOUSE_API_KEY: '__PENDING__',
+        HOST: '127.0.0.1',
+        LOG_LEVEL: 'info',
+        NODE_ENV: 'test',
+        PORT: 0,
+        RATE_LIMIT_MAX: 100,
+        RATE_LIMIT_WINDOW_MS: 60000,
+      },
+    });
+    await app.ready();
+  });
+
+  afterAll(async () => {
+    await app.close();
+  });
+
+  it('GET /api/search returns key pending error when key is missing', async () => {
+    const response = await app.inject({ method: 'GET', url: '/api/search?q=Marine' });
+
+    expect(response.statusCode).toBe(503);
+    const body = response.json();
+    expect(body.error.message).toBe('Companies House API key pending');
+    expect(body.error.code).toBe('COMPANIES_HOUSE_API_KEY_PENDING');
   });
 });
