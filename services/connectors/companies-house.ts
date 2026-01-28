@@ -35,6 +35,12 @@ export interface CompaniesHouseConnectorConfig {
   fetch?: typeof fetch;
 }
 
+interface FetchResponse {
+  ok: boolean;
+  status: number;
+  json(): Promise<unknown>;
+}
+
 // ============================================================================
 // Connector Class
 // ============================================================================
@@ -343,13 +349,13 @@ export class CompaniesHouseConnector {
 
     // Fetch from API
     try {
-      const response = await this.fetchFn(apiUrl, {
+      const response = (await this.fetchFn(apiUrl, {
         method: 'GET',
         headers: {
           Authorization: this.getAuthHeader(),
           Accept: 'application/json',
         },
-      });
+      })) as FetchResponse;
 
       if (!response.ok) {
         const errorCode = this.mapHttpStatusToErrorCode(response.status);
