@@ -269,6 +269,13 @@ function App() {
           )}
         </div>
       </header>
+      <footer className="footer">
+        <div>© 2026 SupplierCheck UK</div>
+        <div className="footer__links">
+          <a href="/terms.html">Terms &amp; Conditions</a>
+          <a href="/privacy.html">Privacy Policy</a>
+        </div>
+      </footer>
     </div>
   );
 }
