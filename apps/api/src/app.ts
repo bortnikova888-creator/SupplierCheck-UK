@@ -50,6 +50,10 @@ interface ApiErrorPayload {
   };
 }
 
+function isConnectorError<T>(result: ConnectorResponse<T>): result is ConnectorError {
+  return result.success === false;
+}
+
 function isCompaniesHouseApiKeyPending(apiKey: string | undefined): boolean {
   const trimmed = (apiKey ?? '').trim();
   return trimmed.length === 0 || trimmed === COMPANIES_HOUSE_API_KEY_PENDING_VALUE;
@@ -128,7 +132,7 @@ async function buildDossierInput(
   registryConfig: RegistryConfig
 ): Promise<{ input: DossierInput; error?: ApiErrorPayload }> {
   const profileResult = await connector.getCompanyProfile(companyNumber);
-  if (!profileResult.success) {
+  if (isConnectorError(profileResult)) {
     const mapped = mapConnectorError(profileResult.error);
     return {
       input: undefined as unknown as DossierInput,
@@ -143,7 +147,7 @@ async function buildDossierInput(
     connector.getPscs(companyNumber),
   ]);
 
-  if (!officersResult.success) {
+  if (isConnectorError(officersResult)) {
     const mapped = mapConnectorError(officersResult.error);
     return {
       input: undefined as unknown as DossierInput,
@@ -153,7 +157,7 @@ async function buildDossierInput(
     };
   }
 
-  if (!pscsResult.success) {
+  if (isConnectorError(pscsResult)) {
     const mapped = mapConnectorError(pscsResult.error);
     return {
       input: undefined as unknown as DossierInput,
@@ -221,7 +225,7 @@ export async function buildApiApp(options: ApiAppOptions): Promise<FastifyInstan
     }
 
     const result = await connector.searchCompanies(query);
-    if (!result.success) {
+    if (isConnectorError(result)) {
       const mapped = mapConnectorError(result.error);
       return sendError(reply, mapped.statusCode, mapped.code, mapped.message, mapped.details);
     }
