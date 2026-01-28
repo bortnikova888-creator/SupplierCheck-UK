@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
+    "prebuild": "pnpm --filter @pkg/config build && pnpm --filter @pkg/core build",
     "build": "tsc",
     "start": "node dist/index.js",
     "clean": "rm -rf dist"
