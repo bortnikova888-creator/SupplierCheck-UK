@@ -13,6 +13,7 @@ import {
   ConnectorErrorCode,
   type CompaniesHouseConnector,
   type ConnectorError,
+  type ConnectorResponse,
   type CompanySearchItem,
 } from '../../../services/connectors';
 import {
