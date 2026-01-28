@@ -6,12 +6,31 @@ import { fileURLToPath } from 'url';
 import type { IncomingMessage, ServerResponse } from 'http';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
+const isVercel = process.env.VERCEL === '1' || process.env.VERCEL === 'true';
+
+if (!isVercel) {
+  dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
+}
 
 const env = parseServerEnv();
-const appPromise = buildApiApp({ env });
+let initError: unknown = null;
+const appPromise = buildApiApp({ env }).catch((err) => {
+  initError = err;
+  console.error('API_INIT_FAILED', err);
+  throw err;
+});
 
-const isVercel = process.env.VERCEL === '1' || process.env.VERCEL === 'true';
+function sendInitError(res: ServerResponse, err: unknown): void {
+  const payload = {
+    error: 'API_INIT_FAILED',
+    message: String(err),
+    name: (err as { name?: string } | null)?.name,
+    stack: process.env.NODE_ENV !== 'production' ? (err as { stack?: string } | null)?.stack : undefined,
+  };
+  res.statusCode = 500;
+  res.setHeader('content-type', 'application/json');
+  res.end(JSON.stringify(payload));
+}
 
 if (!isVercel) {
   void appPromise
@@ -26,9 +45,21 @@ if (!isVercel) {
 }
 
 export default async function handler(req: IncomingMessage, res: ServerResponse) {
-  const app = await appPromise;
-  await app.ready();
-  app.server.emit('request', req, res);
+  if (initError) {
+    console.error('API_INIT_FAILED', initError);
+    sendInitError(res, initError);
+    return;
+  }
+
+  try {
+    const app = await appPromise;
+    await app.ready();
+    app.server.emit('request', req, res);
+  } catch (err) {
+    initError = initError ?? err;
+    console.error('API_INIT_FAILED', err);
+    sendInitError(res, err);
+  }
 }
 
 export { appPromise as app };

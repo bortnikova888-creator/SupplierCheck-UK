@@ -1,10 +1,11 @@
-import { chromium, type Browser } from 'playwright';
+import type { Browser } from 'playwright';
 
 let browserPromise: Promise<Browser> | null = null;
 let isClosing = false;
 let shutdownRegistered = false;
 
 async function launchBrowser(): Promise<Browser> {
+  const { chromium } = await import('playwright');
   return chromium.launch();
 }
 

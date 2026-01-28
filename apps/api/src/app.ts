@@ -191,6 +191,7 @@ async function buildDossierInput(
 
 export async function buildApiApp(options: ApiAppOptions): Promise<FastifyInstance> {
   const env = options.env;
+  const isVercel = process.env.VERCEL === '1' || process.env.VERCEL === 'true';
   const apiKeyPending =
     !options.connector && isCompaniesHouseApiKeyPending(env.COMPANIES_HOUSE_API_KEY);
   const connector =
@@ -207,12 +208,28 @@ export async function buildApiApp(options: ApiAppOptions): Promise<FastifyInstan
     timeWindow: env.RATE_LIMIT_WINDOW_MS,
   });
 
+  app.get('/', async () => {
+    return { status: 'ok', service: 'api' };
+  });
+
   app.get('/health', async () => {
     return { status: 'ok', timestamp: new Date().toISOString(), service: 'api' };
   });
 
   app.get('/api/healthz', async () => {
     return { status: 'ok', timestamp: new Date().toISOString(), service: 'api' };
+  });
+
+  app.get('/_debug', async () => {
+    return {
+      node: process.version,
+      vercel: process.env.VERCEL ?? null,
+      envPresent: {
+        COMPANIES_HOUSE_API_KEY: Boolean(process.env.COMPANIES_HOUSE_API_KEY),
+        PORT: Boolean(process.env.PORT),
+        HOST: Boolean(process.env.HOST),
+      },
+    };
   });
 
   app.get('/api/search', async (request, reply) => {
@@ -303,6 +320,15 @@ export async function buildApiApp(options: ApiAppOptions): Promise<FastifyInstan
   });
 
   app.get('/api/company/:companyNumber/report.pdf', async (request, reply) => {
+    if (isVercel) {
+      return sendError(
+        reply,
+        501,
+        'PDF_DISABLED_ON_VERCEL',
+        'Use /report.html and print to PDF, or run PDF service off-Vercel.'
+      );
+    }
+
     if (apiKeyPending || !connector) {
       return sendCompaniesHouseKeyPending(reply);
     }

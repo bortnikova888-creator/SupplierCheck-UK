@@ -1,7 +1,6 @@
-import { getBrowser } from '../utils/playwright';
-
 export async function renderReportPdf(html: string): Promise<Buffer> {
-  const browser = await getBrowser();
+  const { chromium } = await import('playwright');
+  const browser = await chromium.launch();
   const page = await browser.newPage();
 
   try {
@@ -10,5 +9,6 @@ export async function renderReportPdf(html: string): Promise<Buffer> {
     return Buffer.from(pdf);
   } finally {
     await page.close();
+    await browser.close();
   }
 }
