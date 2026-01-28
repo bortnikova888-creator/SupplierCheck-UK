@@ -49,6 +49,11 @@ interface CSVCacheEntry {
   csvUrl: string;
 }
 
+interface FetchResponse {
+  ok: boolean;
+  text(): Promise<string>;
+}
+
 /** In-memory cache for CSV data, keyed by year */
 const csvCache = new Map<number, CSVCacheEntry>();
 
@@ -83,7 +88,7 @@ export async function fetchCSVForYear(
   const csvUrl = getCSVUrl(year, config);
 
   try {
-    const response = await fetch(csvUrl);
+    const response = (await fetch(csvUrl)) as FetchResponse;
     if (!response.ok) {
       return null;
     }
